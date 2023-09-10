@@ -9,7 +9,6 @@ public interface ProductService {
     public Product save(Product product);
     public Product getProductById(Long productId) ;
     public List<Product> getAllProducts();
-    public Page getAllProductsPaged(int page,int perPage,String sortOrder,String columnName,String search);
     public void deleteProductById(Long productId);
 
 }
