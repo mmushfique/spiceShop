@@ -6,15 +6,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Data
 @Entity
-public class Product {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String name;
-    String description;
-    Double rate;
-    String unit;
+    String transactionType;
+    Double pricePerUnit;
+    Double qty;
+    Double qtyAfterDropped;
+    Double price;
+    @ManyToOne
+    Invoice invoice;
+    @ManyToOne
+    Product product;
 }

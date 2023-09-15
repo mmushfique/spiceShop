@@ -1,7 +1,6 @@
 package com.mush.spiceShop.service;
 
 import com.mush.spiceShop.domain.Product;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

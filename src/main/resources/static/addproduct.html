@@ -365,10 +365,13 @@
             // Create an object to hold the data
             const productData = {
                 name: productName,
-                category: category,
                 rate: rate,
                 unit: unit,
-                description: description
+                description: description,
+                category: {
+                    "id":1,
+                    "name":""
+                },
             };
 
             // Send a POST request to your backend using Axios

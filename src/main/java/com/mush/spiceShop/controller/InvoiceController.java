@@ -1,7 +1,7 @@
 package com.mush.spiceShop.controller;
 
-import com.mush.spiceShop.domain.Product;
-import com.mush.spiceShop.service.ProductService;
+import com.mush.spiceShop.domain.Invoice;
+import com.mush.spiceShop.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
-public class ProductController {
+@RequestMapping("/api/invoice")
+public class InvoiceController {
     @Autowired
-    private ProductService productService;
+    private InvoiceService invoiceService;
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product product){
-        return ResponseEntity.ok(productService.save(product));
+    public ResponseEntity<Invoice> save(@RequestBody Invoice invoice){
+            return ResponseEntity.ok(invoiceService.save(invoice));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long productId){
-        Product product=productService.getProductById(productId);
-        return ResponseEntity.ok(product);
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable("id") Long invoiceId){
+        Invoice invoice=invoiceService.getInvoiceById(invoiceId);
+        return ResponseEntity.ok(invoice);
     }
 
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public List<Invoice> getAllInvoices(){
+        return invoiceService.getAllInvoices();
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(Product product){
-        return ResponseEntity.ok(productService.save(product));
+    public ResponseEntity<Invoice> updateInvoice(Invoice invoice){
+        return ResponseEntity.ok(invoiceService.save(invoice));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProductById(@PathVariable("id") Long productId){
-        productService.deleteProductById(productId);
+    public ResponseEntity<Void> deleteInvoiceById(@PathVariable("id") Long invoiceId){
+        invoiceService.deleteInvoiceById(invoiceId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }
