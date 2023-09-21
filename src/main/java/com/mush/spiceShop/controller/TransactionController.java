@@ -1,7 +1,7 @@
 package com.mush.spiceShop.controller;
 
 import com.mush.spiceShop.domain.Transaction;
-import com.mush.spiceShop.dto.TransactionInputDTO;
+import com.mush.spiceShop.dto.TransactionPurchaseInputDTO;
 import com.mush.spiceShop.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<List<TransactionInputDTO>> save(@RequestBody List<TransactionInputDTO> transactions){
+    public ResponseEntity<List<TransactionPurchaseInputDTO>> save(@RequestBody List<TransactionPurchaseInputDTO> transactions){
         return ResponseEntity.ok(transactionService.save(transactions));
     }
 
@@ -40,7 +40,7 @@ public class TransactionController {
     }
 
     @PutMapping
-    public ResponseEntity<List<TransactionInputDTO>> updateTransaction(List<TransactionInputDTO> transactions){
+    public ResponseEntity<List<TransactionPurchaseInputDTO>> updateTransaction(List<TransactionPurchaseInputDTO> transactions){
         return ResponseEntity.ok(transactionService.save(transactions));
     }
 

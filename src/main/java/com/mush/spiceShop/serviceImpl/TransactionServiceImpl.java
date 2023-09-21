@@ -3,8 +3,8 @@ package com.mush.spiceShop.serviceImpl;
 
 import com.mush.spiceShop.domain.Inventory;
 import com.mush.spiceShop.domain.Transaction;
-import com.mush.spiceShop.dto.TransactionInputDTO;
-import com.mush.spiceShop.reposiory.TransactionRepository;
+import com.mush.spiceShop.dto.TransactionPurchaseInputDTO;
+import com.mush.spiceShop.repository.TransactionRepository;
 import com.mush.spiceShop.service.InventoryService;
 import com.mush.spiceShop.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +21,25 @@ public class TransactionServiceImpl implements TransactionService {
     private InventoryService inventoryService;
 
     @Override
-    public List<TransactionInputDTO> save(List<TransactionInputDTO> transactions) {
+    public List<TransactionPurchaseInputDTO> save(List<TransactionPurchaseInputDTO> transactions) {
         transactions.forEach(trans->{
             Transaction transaction=new Transaction();
             if(trans.getId()!=null){
                 transaction.setId(trans.getId());
             }
-            transaction.setTransactionType(trans.getTransactionType());
             transaction.setPricePerUnit(trans.getPricePerUnit());
             transaction.setQty(trans.getQty());
             transaction.setQtyAfterDropped(trans.getQtyAfterDropped());
             transaction.setPrice(trans.getPrice());
+            transaction.setTransactionStatus(trans.getTransactionStatus());
             transaction.setInvoice(trans.getInvoice());
             transaction.setProduct(trans.getProduct());
-            Transaction transactionResponse=transactionRepository.save(transaction);
+            transactionRepository.save(transaction);
 
             Inventory inventory=new Inventory();
-            inventory.setWeight(trans.getQtyAfterDropped());
             inventory.setModifiedWeight(trans.getQtyAfterDropped());
             inventory.setDried(trans.getDried());
-            inventory.setDryPercent(trans.getDryPercent());
             inventory.setModifiedDryPercent(trans.getDryPercent());
-            inventory.setTransaction(transactionResponse);
             inventoryService.save(inventory);
         });
         return transactions;

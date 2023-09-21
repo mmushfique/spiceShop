@@ -9,4 +9,5 @@ public interface InventoryService {
     public Inventory getInventoryById(Long inventoryId);
     public List<Inventory> getAllInventories();
     public void deleteInventoryById(Long inventoryId);
+    public void updateInventory();
 }

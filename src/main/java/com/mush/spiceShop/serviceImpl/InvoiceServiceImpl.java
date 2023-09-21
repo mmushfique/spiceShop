@@ -2,7 +2,7 @@ package com.mush.spiceShop.serviceImpl;
 
 
 import com.mush.spiceShop.domain.Invoice;
-import com.mush.spiceShop.reposiory.InvoiceRepository;
+import com.mush.spiceShop.repository.InvoiceRepository;
 import com.mush.spiceShop.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

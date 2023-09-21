@@ -15,6 +15,7 @@ public class Product {
     Long id;
     String name;
     String description;
-    Double rate;
+    Double rateFROM0;
+    Double rateFROM50;
     String unit;
 }

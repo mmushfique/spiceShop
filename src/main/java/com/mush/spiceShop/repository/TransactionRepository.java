@@ -1,4 +1,4 @@
-package com.mush.spiceShop.reposiory;
+package com.mush.spiceShop.repository;
 
 import com.mush.spiceShop.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;

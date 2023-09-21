@@ -14,11 +14,11 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String transactionType;
     Double pricePerUnit;
     Double qty;
     Double qtyAfterDropped;
     Double price;
+    String transactionStatus;
     @ManyToOne
     Invoice invoice;
     @ManyToOne

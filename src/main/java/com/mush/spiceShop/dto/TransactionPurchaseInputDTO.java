@@ -6,13 +6,13 @@ import lombok.Data;
 
 import java.time.Instant;
 @Data
-public class TransactionInputDTO {
+public class TransactionPurchaseInputDTO {
     Long id;
-    String transactionType;
     Double pricePerUnit;
     Double qty;
     Double qtyAfterDropped;
     Double price;
+    String transactionStatus;
     Double dryPercent;
     Boolean dried;
     String quality;
