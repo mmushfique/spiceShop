@@ -39,8 +39,8 @@ public class InventoryServiceImpl implements InventoryService {
         List<Inventory> wetProducts = inventoryRepository.findAllByNotDriedAndTransactionStatusNotSOLD(); //95% scenario
 
         List<Inventory> updatedProducts=wetProducts.stream().map(product->{
-            double dryingRateFrom0=product.getProduct().getRateFROM0();
-            double dryingRateFrom50=product.getProduct().getRateFROM50();
+            double dryingRateFrom0=product.getProduct().getRateFrom0();
+            double dryingRateFrom50=product.getProduct().getRateFrom50();
             double initialWeight= product.getModifiedWeight();
             double initialDriedPercentage= product.getModifiedDryPercent();
             double reducedWeight;

@@ -1,6 +1,7 @@
 package com.mush.spiceShop.controller;
 
 import com.mush.spiceShop.domain.Product;
+import com.mush.spiceShop.dto.ProductOutputDTO;
 import com.mush.spiceShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long productId){
-        Product product=productService.getProductById(productId);
-        return ResponseEntity.ok(product);
+    public ProductOutputDTO getProductById(@PathVariable("id") Long productId){
+        return new ProductOutputDTO(productService.getProductById(productId));
     }
 
     @GetMapping
@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(Product product){
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product){
         return ResponseEntity.ok(productService.save(product));
     }
 

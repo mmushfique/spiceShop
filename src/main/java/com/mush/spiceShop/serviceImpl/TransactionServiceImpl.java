@@ -3,7 +3,7 @@ package com.mush.spiceShop.serviceImpl;
 
 import com.mush.spiceShop.domain.Inventory;
 import com.mush.spiceShop.domain.Transaction;
-import com.mush.spiceShop.dto.TransactionPurchaseInputDTO;
+import com.mush.spiceShop.dto.TransactionInputDTO;
 import com.mush.spiceShop.repository.TransactionRepository;
 import com.mush.spiceShop.service.InventoryService;
 import com.mush.spiceShop.service.TransactionService;
@@ -21,7 +21,7 @@ public class TransactionServiceImpl implements TransactionService {
     private InventoryService inventoryService;
 
     @Override
-    public List<TransactionPurchaseInputDTO> save(List<TransactionPurchaseInputDTO> transactions) {
+    public List<TransactionInputDTO> save(List<TransactionInputDTO> transactions) {
         transactions.forEach(trans->{
             Transaction transaction=new Transaction();
             if(trans.getId()!=null){

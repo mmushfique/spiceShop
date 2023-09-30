@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.time.Instant;
 @Data
-public class TransactionPurchaseInputDTO {
+public class TransactionInputDTO {
     Long id;
     Double pricePerUnit;
     Double qty;

@@ -12,12 +12,18 @@
     <title>Dreams Pos admin template</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="assets/css/animate.css">
+
     <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
     <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -157,10 +163,6 @@
                             <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span>
                                     Dashboard</span> </a>
                         </li>
-                        <li>
-                            <a href="pos.html"><img src="assets/img/icons/pos.jpg" alt="img"><span>
-                                    POS</span> </a>
-                        </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span>
                                     Product</span> <span class="menu-arrow"></span></a>
@@ -176,6 +178,8 @@
                                     Sales</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="saleslist.html">Sales List</a></li>
+                                <li><a href="pos.html">POS</a></li>
+                                <li><a href="pos.html">New Sales</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -183,6 +187,7 @@
                                     Purchase</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="purchaselist.html">Purchase List</a></li>
+                                <li><a href="addpurchase.html">Add Purchase</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -203,8 +208,10 @@
                             <a href="javascript:void(0);"><img src="assets/img/icons/time.svg" alt="img"><span>
                                     Report</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="invoicereport.html">Inventory Report</a></li>
+                                <li><a href="purchaseorderreport.html">Purchase order report</a></li>
+                                <li><a href="inventoryreport.html">Inventory Report</a></li>
                                 <li><a href="salesreport.html">Sales Report</a></li>
+                                <li><a href="invoicereport.html">Invoice Report</a></li>
                                 <li><a href="purchasereport.html">Purchase Report</a></li>
                                 <li><a href="supplierreport.html">Supplier Report</a></li>
                                 <li><a href="customerreport.html">Customer Report</a></li>
@@ -223,6 +230,7 @@
                                     Settings</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="generalsettings.html">General Settings</a></li>
+                                <li><a href="paymentsettings.html">Payment Settings</a></li>
                                 <li><a href="grouppermissions.html">Group Permissions</a></li>
                             </ul>
                         </li>
@@ -235,23 +243,49 @@
         <!-- ----------------------------------------------------------------------- -->
         <!-- --------------------------------------------------------------------------- -->
 
-
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Product Add Category</h4>
-                        <h6>Create new product Category</h6>
+                        <h4>Product Update</h4>
+                        <h6>Edit product</h6>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg12">
+                                <input type="text" id="prdid" hidden>
                                 <div class="form-group">
-                                    <label>Category Name</label>
+                                    <label>Product Name</label>
                                     <input type="text" id="name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Weight loss rate from 0% to 50%</label>
+                                    <!-- <input type="number" step="0.01"> -->
+                                    <input type="text" id="rateFrom0">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Weight loss rate from 50% to 100%</label>
+                                    <!-- <input type="number" step="0.01"> -->
+                                    <input type="text" id="rateFrom50">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Unit</label>
+                                    <select class="select" id="unit">
+                                        <option>Kilogram (Kg)</option>
+                                        <option>Count</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -272,11 +306,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="product-list">
+                                    <ul class="row">
+                                        <li>
+                                            <div class="productviews">
+                                                <div class="productviewsimg">
+                                                    <img src="assets/img/icons/macbook.svg" alt="img">
+                                                </div>
+                                                <div class="productviewscontent">
+                                                    <div class="productviewsname">
+                                                        <h2>macbookpro.jpg</h2>
+                                                        <h3>581kb</h3>
+                                                    </div>
+                                                    <a href="javascript:void(0);" class="hideset">x</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
-                                <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-                                <a href="categorylist.html" class="btn btn-cancel">Cancel</a>
+                                <a href="javascript:void(0);" class="btn btn-submit me-2">Update</a>
+                                <a href="productlist.html" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -284,6 +339,7 @@
         </div>
     </div>
 
+    
     <!-- Modal HTML -->
     <div id="resultModal" class="modal">
         <div class="modal-content">
@@ -292,82 +348,152 @@
         </div>
     </div>
 
-    <style>
-
-
-    </style>
-    <!-- --------------------------------------------------------------------------------------------------------- -->
-    <!-- --------------------------------------------------------------------------------------------------------- -->
-    <!-- --------------------------------------------------------------------------------------------------------- -->
-
+    <!-- ------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------------- -->
 
     <script>
-        // Function to handle category form submission
-        function handleCategorySubmit() {
-            // Get values from the form
-            const categoryName = document.getElementById('name').value;
-            const categoryDescription = document.getElementById('description').value;
-
-            // Validate form data (add your validation logic here)
-            if (!categoryName.trim() || !categoryDescription.trim()) {
-                modalPop('Please fill in all fields.')
+        // Function to retrieve URL parameters by name
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                var results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
             }
-            // Create an object to hold category data
-            const categoryData = {
-                name: categoryName,
-                description: categoryDescription
-                // Add more properties as needed
-            };
 
-            // Send a POST request to your backend using Axios
-            axios.post('/api/category', categoryData)
-                .then(response => {
-                    modalPop('Category added successfully.')
+            // Fetch data using Axios when the page is loaded
+            window.addEventListener('load', function () {
 
-                    // Optionally, you can redirect to another page after successful submission
-                    // window.location.href = 'categorylist.html';
-                })
-                .catch(error => {
-                    modalPop('Error adding category. Please try again.')
-                    console.error(error);
-                });
-        }
+                // Get the 'id' parameter from the URL
+                var productId = getParameterByName('id');
+
+                // Check if the 'id' parameter is present
+                if (productId) {
+                    // Make an Axios request to fetch data based on the 'id'
+                    axios.get(`/api/product/${productId}`)
+                        .then(function (response) {
+                            if (response.status === 200 && response.data) {
+                                var data = response.data;
+
+                                // Reference to the HTML elements
+                                var id = document.getElementById('prdid');
+                                var nameInput = document.getElementById('name');
+                                var rateFrom0Input = document.getElementById('rateFrom0');
+                                var rateFrom50Input = document.getElementById('rateFrom50');
+                                var unitSelect = document.getElementById('unit');
+                                var descriptionTextarea = document.getElementById('description');
+
+                                // Populate the form fields with the retrieved data
+                                id.value = data.id;
+                                nameInput.value = data.name;
+                                rateFrom0Input.value = data.rateFrom0;
+                                rateFrom50Input.value = data.rateFrom50;
+
+                                // Set the selected option in the 'unit' dropdown
+                                var unitOptions = unitSelect.options;
+                                for (var i = 0; i < unitOptions.length; i++) {
+                                    if (unitOptions[i].text === data.unit) {
+                                        unitOptions[i].selected = true;
+                                        break;
+                                    }
+                                }
+
+                                descriptionTextarea.value = data.description;
+                            } else {
+                                console.error('Failed to fetch product data');
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error('An error occurred while fetching product data:', error);
+                        });
+                } else {
+                    console.error('No "id" parameter found in the URL');
+                }
+            });
+
+            // Function to handle form submission
+            function handleSubmit() {
+                // Get values from HTML elements
+                const id = document.getElementById('prdid').value;
+                const productName = document.getElementById('name').value;
+                const rateFrom0 = document.getElementById('rateFrom0').value;
+                const rateFrom50 = document.getElementById('rateFrom50').value;
+                const unit = document.getElementById('unit').value;
+                const description = document.getElementById('description').value;
+
+                // Validate the values (you can add more validation as needed)
+                if (!productName || !rateFrom0 || !rateFrom50 || !unit || !description) {
+                    modalPop('Please fill in all fields.')
+                }
+                else {
+                    // Create an object to hold the data
+                    const productData = {
+                        id: id,
+                        name: productName,
+                        rateFrom0: rateFrom0,
+                        rateFrom50: rateFrom50,
+                        unit: unit,
+                        description: description
+                    };
+                    // Send a POST request to your backend using Axios
+                    axios.put('/api/product', productData)
+                        .then(response => {
+                            modalPop('Product updated successfully.')
+                            setTimeout(function () {
+                                window.location.href = 'productlist.html';
+                            }, 500);
+                            // Optionally, you can redirect to another page after successful submission
+                            // window.location.href = 'productlist.html';
+                        })
+                        .catch(error => {
+                            modalPop('Error adding product. Please try again.')
+                            console.error(error);
+                        });
+                }
+            }
 
 
-        //modal pupulate code
-        function modalPop(value) {
-            const modal = document.getElementById('resultModal');
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = '<p>' + value + '</p>';
+            //modal populate code
+            function modalPop(value) {
+                const modal = document.getElementById('resultModal');
+                const modalContent = document.getElementById('modal-content');
+                modalContent.innerHTML = '<p>' + value + '</p>';
 
-            // Display the modal
-            modal.style.display = 'block';
+                // Display the modal
+                modal.style.display = 'block';
 
-            // Close the modal when the user clicks the close button
-            const closeBtn = document.querySelector('.close');
-            closeBtn.onclick = function () {
-                modal.style.display = 'none';
-            };
-            return;
-        }
+                // Close the modal when the user clicks the close button
+                const closeBtn = document.querySelector('.close');
+                closeBtn.onclick = function () {
+                    modal.style.display = 'none';
+                };
+                return;
+            }
 
 
-
-        // Add an event listener to the Category Submit button
-        document.querySelector('.btn-submit').addEventListener('click', handleCategorySubmit);
+            // Add an event listener to the Submit button
+            document.querySelector('.btn-submit').addEventListener('click', handleSubmit);
     </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="assets/js/axios.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
+
     <script src="assets/js/feather.min.js"></script>
+
     <script src="assets/js/jquery.slimscroll.min.js"></script>
+
     <script src="assets/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+
     <script src="assets/plugins/select2/js/select2.min.js"></script>
+
     <script src="assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
+
     <script src="assets/js/script.js"></script>
 </body>
 
