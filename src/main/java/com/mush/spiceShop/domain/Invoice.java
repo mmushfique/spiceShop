@@ -20,6 +20,7 @@ public class Invoice {
 //    Supplier supplier;
 //    @ManyToOne
 //    Buyer buyer;
+    String tradeType;
     String createdBy;
     String lastModifiedBy;
     Instant createdAt;

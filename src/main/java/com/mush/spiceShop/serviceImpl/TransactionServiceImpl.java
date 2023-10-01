@@ -31,18 +31,22 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setQty(trans.getQty());
             transaction.setQtyAfterDropped(trans.getQtyAfterDropped());
             transaction.setPrice(trans.getPrice());
-            transaction.setTransactionStatus(trans.getTransactionStatus());
             transaction.setInvoice(trans.getInvoice());
             transaction.setProduct(trans.getProduct());
-            transactionRepository.save(transaction);
+            transaction=transactionRepository.save(transaction);
 
             Inventory inventory=new Inventory();
+            inventory.setTransaction(transaction);
             inventory.setModifiedWeight(trans.getQtyAfterDropped());
             inventory.setDried(trans.getDried());
             inventory.setModifiedDryPercent(trans.getDryPercent());
             inventoryService.save(inventory);
         });
         return transactions;
+    }
+    @Override
+    public List<TransactionInputDTO> saveSales(List<TransactionInputDTO> transactions) {
+        return null;
     }
     @Override
     public Transaction getTransactionById(Long transactionId){

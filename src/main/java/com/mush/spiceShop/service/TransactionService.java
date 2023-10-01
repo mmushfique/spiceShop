@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TransactionService {
     public List<TransactionInputDTO> save(List<TransactionInputDTO> transactions);
+    public List<TransactionInputDTO> saveSales(List<TransactionInputDTO> transactions);
     public Transaction getTransactionById(Long transactionId);
     public List<Transaction> getAllTransactions();
     public void deleteTransactionById(Long transactionId);

@@ -28,6 +28,11 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.save(transactions));
     }
 
+    @PostMapping("/sale")
+    public ResponseEntity<List<TransactionInputDTO>> saveSales(@RequestBody List<TransactionInputDTO> transactions){
+        return ResponseEntity.ok(transactionService.saveSales(transactions));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") Long transactionId){
         Transaction transaction=transactionService.getTransactionById(transactionId);

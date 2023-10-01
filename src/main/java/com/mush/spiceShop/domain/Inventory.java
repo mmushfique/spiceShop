@@ -25,4 +25,6 @@ public class Inventory {
     Instant lastModifiedAt;
     @ManyToOne
     Product product;
+    @ManyToOne
+    Transaction transaction;
 }

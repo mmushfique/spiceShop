@@ -165,7 +165,7 @@
         <div class="page-wrapper ms-0">
             <div class="content">
                 <div class="row">
-                    <div class="col-lg-8 col-sm-12 tabs_wrapper">
+                    <div class="col-lg-6 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
                             <div class="page-title">
                                 <h4>Categories</h4>
@@ -177,7 +177,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-sm-12 ">
+                    <div class="col-lg-6 col-sm-12 ">
                         <div class="order-list">
                             <div class="orderid">
                                 <h4>Order List</h4>
@@ -353,25 +353,25 @@
 
         ///////////// Make a GET request to retrieve products///////////////////////////////////
         window.onload = function () {
-            // axios.get('/api/product')
-            //     .then(response => {
-            //         // Assuming the response.data is an array of products
-            //         const products = response.data;   
-            //         // Call a function to populate products with the retrieved data
-            //         addProductsToPage(products);
-            //     })
-            //     .catch(error => {
-            //         modalPop('Error fetching products:', error)
-            //     });
+            axios.get('/api/product')
+                .then(response => {
+                    // Assuming the response.data is an array of products
+                    const products = response.data;   
+                    // Call a function to populate products with the retrieved data
+                    addProductsToPage(products);
+                })
+                .catch(error => {
+                    modalPop('Error fetching products:', error)
+                });
 
-            const products =
-                [
-                    { id: 1, name: "Rubber", quantity: 5.0 },
-                    { id: 1, name: "Rubber", quantity: 5.0 }
-                    // Add more products here
-                ];
+            // const products =
+            //     [
+            //         { id: 1, name: "Rubber", quantity: 5.0 },
+            //         { id: 1, name: "Rubber", quantity: 5.0 }
+            //         // Add more products here
+            //     ];
             addProductsToPage(products);
-            
+
 
         }
 
@@ -382,7 +382,7 @@
             // Loop through your product data and create HTML elements
             products.forEach(product => {
                 const productDiv = document.createElement("div");
-                productDiv.classList.add("col-lg-2", "col-sm-2", "d-flex");
+                productDiv.classList.add("col-lg-3", "col-sm-2", "d-flex");
 
                 const productLink = document.createElement("a");
                 productLink.href = "javascript:void(0);";
@@ -406,7 +406,7 @@
                 productSetImg.classList.add("productsetimg");
 
                 const productImage = document.createElement("img");
-                productImage.id="imgDisplayed"
+                productImage.id = "imgDisplayed"
                 productImage.src = "assets/img/product/rubber.jpg";//product.image;
                 productImage.alt = "img";
 
@@ -569,75 +569,75 @@
         const checkoutButton = document.getElementById('checkoutTotal');
 
         // Add a click event listener to the button
-       // Add a click event listener to the button
-checkoutButton.addEventListener('click', function () {
-    const total = document.querySelector('#total');
+        // Add a click event listener to the button
+        checkoutButton.addEventListener('click', function () {
+            const total = document.querySelector('#total');
 
-    // Create the invoice object
-    const invoice = {
-        "total": parseFloat(total.textContent.replace('Rs', ''))
-    };
+            // Create the invoice object
+            const invoice = {  
+                "total": parseFloat(total.textContent.replace('Rs', '')),
+                "tradeType":"BOUGHT"
+            };
 
-    // Send the invoice creation request
-    axios.post('/api/invoice', invoice)
-        .then(invoiceResponse => {
-            // Handle the response from the server if needed
-            // Get the newly created invoice's ID
-            const invoiceId = invoiceResponse.data.id;
-
-            // Get all the records in the table
-            const productTableLists = document.querySelectorAll('.product-lists');
-
-            // Create an array to store the records
-            const transaction = [];
-
-            // Loop through each record in the table
-            for (let i = 1; i < productTableLists.length; i++) {
-                const table = productTableLists[i];
-                const record = {
-                    "transactionType": "Buy",
-                    "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
-                    "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
-                    "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
-                    "price": parseFloat(table.querySelectorAll('li')[4].textContent),
-                    "dried": false,
-                    "dryPercent": 0.5,
-                    "invoice": {
-                        "id": invoiceId // Use the invoice ID obtained earlier
-                    },
-                    "product": {
-                        "id": table.querySelectorAll('h4')[1].textContent,
-                        "name": table.querySelectorAll('h4')[0].textContent
-                    }
-                };
-
-                transaction.push(record);
-            }
-            console.log('transactions created:', transaction);
-            // Send the records to your server using Axios
-            axios.post('/api/transaction', transaction)
-                .then(response => {
+            // Send the invoice creation request
+            axios.post('/api/invoice', invoice)
+                .then(invoiceResponse => {
                     // Handle the response from the server if needed
-                    modalPop('Transaction successful');
+                    // Get the newly created invoice's ID
+                    const invoiceId = invoiceResponse.data.id;
+
+                    // Get all the records in the table
+                    const productTableLists = document.querySelectorAll('.product-lists');
+
+                    // Create an array to store the records
+                    const transactions = [];
+
+                    // Loop through each record in the table
+                    for (let i = 1; i < productTableLists.length; i++) {
+                        const table = productTableLists[i];
+                        const record = {
+                            "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
+                            "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
+                            "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
+                            "price": parseFloat(table.querySelectorAll('li')[4].textContent),
+                            "dried": false,
+                            "dryPercent": 0.5,
+                            "invoice": {
+                                "id": invoiceId // Use the invoice ID obtained earlier
+                            },
+                            "product": {
+                                "id": table.querySelectorAll('h4')[1].textContent,
+                                "name": table.querySelectorAll('h4')[0].textContent
+                            }
+                        };
+
+                        transactions.push(record);
+                    }
+                    console.log('transactions created:', transactions);
+                    // Send the records to your server using Axios
+                    axios.post('/api/transaction', transactions)
+                        .then(response => {
+                            // Handle the response from the server if needed
+                            modalPop('Transaction successful');
+                        })
+                        .catch(error => {
+                            // Handle any errors that occur during the POST request
+                            modalPop('Error sending transaction data:', error);
+                        });
+
+                    // ... (clear input fields and other logic) ..
+                    // Clear the input fields or perform any other necessary actions
+                    // For example, clear the product table
+                    const productTable = document.querySelector('#productTable');
+                    productTable.innerHTML = '';
+                    // Reset the total value
+                    document.getElementById('checkoutTotal').textContent = '0.00';
                 })
                 .catch(error => {
-                    // Handle any errors that occur during the POST request
-                    modalPop('Error sending transaction data:', error);
+                    // Handle any errors that occur during the invoice creation
+                    modalPop('Error creating invoice:', error);
                 });
-
-            // ... (clear input fields and other logic) ..
-            // Clear the input fields or perform any other necessary actions
-            // For example, clear the product table
-            const productTable = document.querySelector('#productTable');
-            productTable.innerHTML = '';
-            // Reset the total value
-            document.getElementById('checkoutTotal').textContent = '0.00';
-        })
-        .catch(error => {
-            // Handle any errors that occur during the invoice creation
-            modalPop('Error creating invoice:', error);
         });
-});
 
 
         ///// END ///////////Send the records from table to server///////////////////////////

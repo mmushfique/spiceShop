@@ -18,7 +18,6 @@ public class Transaction {
     Double qty;
     Double qtyAfterDropped;
     Double price;
-    String transactionStatus;
     @ManyToOne
     Invoice invoice;
     @ManyToOne
