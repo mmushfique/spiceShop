@@ -244,8 +244,8 @@
       <div class="content">
         <div class="page-header">
           <div class="page-title">
-            <h4>Purchase List</h4>
-            <h6>View the purchases</h6>
+            <h4>Sale List</h4>
+            <h6>View the sales</h6>
           </div>
         </div>
 
@@ -394,7 +394,7 @@
       <ul class="dropdown-menu">
         <li>
           <a class="dropdown-item"><img src="assets/img/icons/eye1.svg"
-              class="me-2" alt="img">Purchase Detail</a>
+              class="me-2" alt="img">Sale Detail</a>
         </li>
         <li>
           <a class="dropdown-item"><img src="assets/img/icons/edit.svg"
@@ -417,7 +417,7 @@
 
     // Fetch data using Axios when the page is loaded
     window.addEventListener('load', function () {
-      axios.get('/api/invoice/purchase')
+      axios.get('/api/invoice/sale')
         .then(function (response) {
           // Check if the response is successful and contains data
           if (response.status === 200 && response.data) {
@@ -451,7 +451,7 @@
         newRow.querySelector('td:nth-child(4)').textContent = item.total;
         newRow.querySelector('td:nth-child(5)').textContent = "Paid"
 
-        newRow.querySelectorAll('td:nth-child(6) ul li')[0].querySelector('a').setAttribute("href", `purchase-details.html?id=${item.id}`);
+        newRow.querySelectorAll('td:nth-child(6) ul li')[0].querySelector('a').setAttribute("href", `sales-details.html?id=${item.id}`);
         dataArray += newRow.outerHTML;
       });
 

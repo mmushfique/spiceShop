@@ -44,6 +44,10 @@ public class TransactionController {
         return transactionService.getAllTransactions();
     }
 
+    @GetMapping("/by-invoice/{id}")
+    public List<Transaction> getAllTransactionsByInvoice(@PathVariable("id") Long invoiceId){
+        return transactionService.getAllTransactionsByInvoice(invoiceId);
+    }
     @PutMapping
     public ResponseEntity<List<TransactionInputDTO>> updateTransaction(List<TransactionInputDTO> transactions){
         return ResponseEntity.ok(transactionService.save(transactions));

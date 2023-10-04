@@ -28,11 +28,15 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.findAll();
     }
     @Override
-    public void deleteInvoiceById(Long invoiceId) {
-        invoiceRepository.deleteById(invoiceId);
-    }
-    @Override
     public List<Invoice> getAllInvoicePurchases() {
         return invoiceRepository.getAllInvoicePurchases();
+    }
+    @Override
+    public List<Invoice> getAllInvoiceSales() {
+        return invoiceRepository.getAllInvoiceSales();
+    }
+    @Override
+    public void deleteInvoiceById(Long invoiceId) {
+        invoiceRepository.deleteById(invoiceId);
     }
 }

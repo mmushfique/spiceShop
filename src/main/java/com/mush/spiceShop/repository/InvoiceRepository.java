@@ -11,4 +11,9 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
 //            "LEFT JOIN Supplier supplier " +
             "WHERE invoice.tradeType='BOUGHT'")
     List<Invoice> getAllInvoicePurchases();
+
+    @Query("SELECT invoice FROM Invoice invoice " +
+//            "LEFT JOIN Buyer buyer " +
+            "WHERE invoice.tradeType='SOLD'")
+    List<Invoice> getAllInvoiceSales();
 }

@@ -56,6 +56,12 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> getAllTransactions(){
         return transactionRepository.findAll();
     }
+
+    @Override
+    public List<Transaction> getAllTransactionsByInvoice(Long invoiceId) {
+        return transactionRepository.findAllByInvoiceId(invoiceId);
+    }
+
     @Override
     public void deleteTransactionById(Long transactionId) {
         transactionRepository.deleteById(transactionId);

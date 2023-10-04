@@ -10,5 +10,6 @@ public interface TransactionService {
     public List<TransactionInputDTO> saveSales(List<TransactionInputDTO> transactions);
     public Transaction getTransactionById(Long transactionId);
     public List<Transaction> getAllTransactions();
+    List<Transaction> getAllTransactionsByInvoice(Long invoiceId);
     public void deleteTransactionById(Long transactionId);
 }

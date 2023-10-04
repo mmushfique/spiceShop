@@ -38,6 +38,11 @@ public class InvoiceController {
         return invoiceService.getAllInvoicePurchases();
     }
 
+    @GetMapping("/sale")
+    public List<Invoice> getAllInvoiceSales(){
+        return invoiceService.getAllInvoiceSales();
+    }
+
     @PutMapping
     public ResponseEntity<Invoice> updateInvoice(Invoice invoice){
         return ResponseEntity.ok(invoiceService.save(invoice));
