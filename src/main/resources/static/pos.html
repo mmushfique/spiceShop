@@ -38,9 +38,8 @@
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
-        <div class="header">
+        <div class="header" style="background-color: aqua;">
             <div class="header-left border-0 ">
-                <a href="salespos.html" style="background-color: blue;">Sales POS </a>
                 <a href="index.html" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
@@ -165,7 +164,7 @@
         <div class="page-wrapper ms-0">
             <div class="content">
                 <div class="row">
-                    <div class="col-lg-6 col-sm-12 tabs_wrapper">
+                    <div class="col-lg-4 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
                             <div class="page-title">
                                 <h4>Categories</h4>
@@ -177,7 +176,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-sm-12 ">
+                    <div class="col-lg-8 col-sm-12 ">
                         <div class="order-list">
                             <div class="orderid">
                                 <h4>Order List</h4>
@@ -382,7 +381,7 @@
             // Loop through your product data and create HTML elements
             products.forEach(product => {
                 const productDiv = document.createElement("div");
-                productDiv.classList.add("col-lg-3", "col-sm-2", "d-flex");
+                productDiv.classList.add("col-lg-4", "col-sm-2", "d-flex");
 
                 const productLink = document.createElement("a");
                 productLink.href = "javascript:void(0);";
@@ -407,7 +406,7 @@
 
                 const productImage = document.createElement("img");
                 productImage.id = "imgDisplayed"
-                productImage.src = "assets/img/product/rubber.jpg";//product.image;
+                productImage.src = product.imageUrl;//product.image;
                 productImage.alt = "img";
 
                 const productSetContent = document.createElement("div");
@@ -659,7 +658,7 @@
             return;
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="assets/js/axios.js"></script>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 

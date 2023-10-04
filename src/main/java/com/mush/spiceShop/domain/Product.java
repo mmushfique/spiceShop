@@ -18,6 +18,7 @@ public class  Product {
     Double rateFrom0;
     Double rateFrom50;
     String unit;
+    String imageUrl;
 }
 
 

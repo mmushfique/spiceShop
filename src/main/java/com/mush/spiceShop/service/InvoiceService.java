@@ -10,4 +10,5 @@ public interface InvoiceService {
     public List<Invoice> getAllInvoices();
     public void deleteInvoiceById(Long invoiceId);
 
+    List<Invoice> getAllInvoicePurchases();
 }

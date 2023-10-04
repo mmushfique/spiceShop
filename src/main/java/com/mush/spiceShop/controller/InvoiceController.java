@@ -33,9 +33,9 @@ public class InvoiceController {
         return ResponseEntity.ok(invoice);
     }
 
-    @GetMapping
-    public List<Invoice> getAllInvoices(){
-        return invoiceService.getAllInvoices();
+    @GetMapping("/purchase")
+    public List<Invoice> getAllInvoicePurchases(){
+        return invoiceService.getAllInvoicePurchases();
     }
 
     @PutMapping
