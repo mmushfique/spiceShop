@@ -614,7 +614,7 @@
                     }
                     console.log('transactions created:', transactions);
                     // Send the records to your server using Axios
-                    axios.post('/api/transaction', transactions)
+                    axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
                             // Handle the response from the server if needed
                             modalPop('Transaction successful');

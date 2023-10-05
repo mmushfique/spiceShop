@@ -22,8 +22,7 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
-
-    @PostMapping
+    @PostMapping("/purchase")
     public ResponseEntity<List<TransactionInputDTO>> save(@RequestBody List<TransactionInputDTO> transactions){
         return ResponseEntity.ok(transactionService.save(transactions));
     }
