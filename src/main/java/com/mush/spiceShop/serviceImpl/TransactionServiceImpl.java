@@ -21,7 +21,7 @@ public class TransactionServiceImpl implements TransactionService {
     private InventoryService inventoryService;
 
     @Override
-    public List<TransactionInputDTO> save(List<TransactionInputDTO> transactions) {
+    public List<TransactionInputDTO> savePurchases(List<TransactionInputDTO> transactions) {
         transactions.forEach(trans->{
             Transaction transaction=new Transaction();
             if(trans.getId()!=null){

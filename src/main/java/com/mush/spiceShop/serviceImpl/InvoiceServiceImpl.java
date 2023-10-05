@@ -24,10 +24,6 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceRepository.getById(invoiceId);
     }
     @Override
-    public List<Invoice> getAllInvoices(){
-        return invoiceRepository.findAll();
-    }
-    @Override
     public List<Invoice> getAllInvoicePurchases() {
         return invoiceRepository.getAllInvoicePurchases();
     }

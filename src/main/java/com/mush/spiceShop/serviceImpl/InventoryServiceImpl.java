@@ -22,10 +22,6 @@ public class InventoryServiceImpl implements InventoryService {
         return inventoryRepository.save(inventory);
     }
     @Override
-    public Inventory getInventoryById(Long inventoryId){
-        return inventoryRepository.getById(inventoryId);
-    }
-    @Override
     public List<Inventory> getAllInventories(){
         return inventoryRepository.findAll();
     }

@@ -6,7 +6,7 @@ import com.mush.spiceShop.dto.TransactionInputDTO;
 import java.util.List;
 
 public interface TransactionService {
-    public List<TransactionInputDTO> save(List<TransactionInputDTO> transactions);
+    public List<TransactionInputDTO> savePurchases(List<TransactionInputDTO> transactions);
     public List<TransactionInputDTO> saveSales(List<TransactionInputDTO> transactions);
     public Transaction getTransactionById(Long transactionId);
     public List<Transaction> getAllTransactions();

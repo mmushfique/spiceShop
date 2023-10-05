@@ -24,7 +24,7 @@ public class TransactionController {
     private TransactionService transactionService;
     @PostMapping("/purchase")
     public ResponseEntity<List<TransactionInputDTO>> save(@RequestBody List<TransactionInputDTO> transactions){
-        return ResponseEntity.ok(transactionService.save(transactions));
+        return ResponseEntity.ok(transactionService.savePurchases(transactions));
     }
 
     @PostMapping("/sale")
@@ -47,9 +47,9 @@ public class TransactionController {
     public List<Transaction> getAllTransactionsByInvoice(@PathVariable("id") Long invoiceId){
         return transactionService.getAllTransactionsByInvoice(invoiceId);
     }
-    @PutMapping
+    @PutMapping("/purchase")
     public ResponseEntity<List<TransactionInputDTO>> updateTransaction(List<TransactionInputDTO> transactions){
-        return ResponseEntity.ok(transactionService.save(transactions));
+        return ResponseEntity.ok(transactionService.savePurchases(transactions));
     }
 
     @DeleteMapping("/{id}")
