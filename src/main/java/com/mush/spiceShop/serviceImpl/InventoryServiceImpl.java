@@ -2,8 +2,10 @@ package com.mush.spiceShop.serviceImpl;
 
 
 import com.mush.spiceShop.domain.Inventory;
+import com.mush.spiceShop.domain.Stock;
 import com.mush.spiceShop.repository.InventoryRepository;
 import com.mush.spiceShop.service.InventoryService;
+import com.mush.spiceShop.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private InventoryRepository inventoryRepository;
+
+    @Autowired
+    private StockService stockService;
 
     @Override
     public Inventory save(Inventory inventory) {
@@ -34,7 +39,8 @@ public class InventoryServiceImpl implements InventoryService {
     public void updateInventory() {
         List<Inventory> wetProducts = inventoryRepository.findAllByNotDriedAndTransactionStatusNotSOLD(); //95% scenario
 
-        List<Inventory> updatedProducts=wetProducts.stream().map(product->{
+//        List<Inventory> updatedProducts=wetProducts.stream().map(product->{
+            wetProducts.forEach(product->{
             double dryingRateFrom0=product.getProduct().getRateFrom0();
             double dryingRateFrom50=product.getProduct().getRateFrom50();
             double initialWeight= product.getModifiedWeight();
@@ -53,13 +59,20 @@ public class InventoryServiceImpl implements InventoryService {
                 product.setDried(true);
             }
 
+            Stock stock=new Stock();
+            stock.setProduct(product.getProduct());
+            stock.setQty(-reducedWeight);
+            stockService.save(stock);
+
             product.setModifiedWeight(modifiedWeight);
             product.setModifiedDryPercent(modifiedDriedPercentage);
-            return product;
-        }).collect(Collectors.toList());
-
-        updatedProducts.forEach(product->{
             inventoryRepository.save(product);
+
+//            return product;
+//        }).collect(Collectors.toList());
+//
+//        updatedProducts.forEach(product->{
+//            inventoryRepository.save(product);
         });
     }
 }

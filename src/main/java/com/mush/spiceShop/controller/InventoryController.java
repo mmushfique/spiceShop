@@ -22,24 +22,9 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
-    @PostMapping
-    public ResponseEntity<Inventory> save(@RequestBody Inventory inventory){
-        return ResponseEntity.ok(inventoryService.save(inventory));
-    }
-
     @GetMapping
     public List<Inventory> getAllInventories(){
         return inventoryService.getAllInventories();
     }
 
-    @PutMapping
-    public ResponseEntity<Inventory> updateInventory(Inventory inventory){
-        return ResponseEntity.ok(inventoryService.save(inventory));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInventoryById(@PathVariable("id") Long inventoryId){
-        inventoryService.deleteInventoryById(inventoryId);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
 }

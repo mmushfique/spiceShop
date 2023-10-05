@@ -2,10 +2,12 @@ package com.mush.spiceShop.serviceImpl;
 
 
 import com.mush.spiceShop.domain.Inventory;
+import com.mush.spiceShop.domain.Stock;
 import com.mush.spiceShop.domain.Transaction;
 import com.mush.spiceShop.dto.TransactionInputDTO;
 import com.mush.spiceShop.repository.TransactionRepository;
 import com.mush.spiceShop.service.InventoryService;
+import com.mush.spiceShop.service.StockService;
 import com.mush.spiceShop.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private StockService stockService;
 
     @Override
     public List<TransactionInputDTO> savePurchases(List<TransactionInputDTO> transactions) {
@@ -41,6 +45,11 @@ public class TransactionServiceImpl implements TransactionService {
             inventory.setDried(trans.getDried());
             inventory.setModifiedDryPercent(trans.getDryPercent());
             inventoryService.save(inventory);
+
+            Stock stock=new Stock();
+            stock.setProduct(trans.getProduct());
+            stock.setQty(trans.getQty());
+            stockService.save(stock);
         });
         return transactions;
     }

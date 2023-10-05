@@ -4,5 +4,6 @@ import com.mush.spiceShop.domain.Stock;
 import java.util.List;
 
 public interface StockService {
-    List<Stock> getAllStocks();
+    public Stock save(Stock stock);
+    public List<Stock> getAllStocks();
 }
