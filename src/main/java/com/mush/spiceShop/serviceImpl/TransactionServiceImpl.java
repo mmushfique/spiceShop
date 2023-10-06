@@ -55,7 +55,25 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public List<TransactionInputDTO> saveSales(List<TransactionInputDTO> transactions) {
-        return null;
+        transactions.forEach(trans->{
+            Transaction transaction=new Transaction();
+            if(trans.getId()!=null){
+                transaction.setId(trans.getId());
+            }
+            transaction.setPricePerUnit(trans.getPricePerUnit());
+            transaction.setQty(trans.getQty());
+            transaction.setQtyAfterDropped(trans.getQtyAfterDropped());
+            transaction.setPrice(trans.getPrice());
+            transaction.setInvoice(trans.getInvoice());
+            transaction.setProduct(trans.getProduct());
+            transactionRepository.save(transaction);
+
+            Stock stock=new Stock();
+            stock.setProduct(trans.getProduct());
+            stock.setQty(-trans.getQty());
+            stockService.save(stock);
+        });
+        return transactions;
     }
     @Override
     public Transaction getTransactionById(Long transactionId){
