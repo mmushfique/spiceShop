@@ -23,6 +23,12 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Long productId){
         return productRepository.getById(productId);
     }
+    public Product getDriedProduct(Product wetProduct){
+        if(productRepository.getProductByNameAndCategory(wetProduct.getName(),"DRY")==null){
+            return null;
+        }
+        return productRepository.getProductByNameAndCategory(wetProduct.getName(),"DRY");
+    }
     @Override
     public List<Product> getAllProducts(){
         return productRepository.findAll();

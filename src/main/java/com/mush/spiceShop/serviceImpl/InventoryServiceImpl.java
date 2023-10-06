@@ -55,18 +55,24 @@ public class InventoryServiceImpl implements InventoryService {
             double modifiedWeight=initialWeight-reducedWeight;
             double modifiedDriedPercentage=initialDriedPercentage-(dryingRateFrom0/(100*60*60));
 
+            Stock stock = new Stock();
+            stock.setProduct(product.getProduct());
+
             if (modifiedDriedPercentage >= 97.0) {
                 product.setDried(true);
+                stock.setQty(-initialWeight);
+                stockService.save(stock);
+
+                stock.setQty(modifiedWeight);
+                stockService.saveDried(stock);
+            }else {
+                stock.setQty(-reducedWeight);
+                stockService.save(stock);
             }
 
-            Stock stock=new Stock();
-            stock.setProduct(product.getProduct());
-            stock.setQty(-reducedWeight);
-            stockService.save(stock);
-
-            product.setModifiedWeight(modifiedWeight);
-            product.setModifiedDryPercent(modifiedDriedPercentage);
-            inventoryRepository.save(product);
+                product.setModifiedWeight(modifiedWeight);
+                product.setModifiedDryPercent(modifiedDriedPercentage);
+                inventoryRepository.save(product);
 
 //            return product;
 //        }).collect(Collectors.toList());

@@ -5,5 +5,7 @@ import java.util.List;
 
 public interface StockService {
     public Stock save(Stock stock);
+    public Stock saveDried( Stock stock);
     public List<Stock> getAllStocks();
+
 }
