@@ -258,13 +258,24 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div  style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
-
                             <div >
                                 <input type="text" id="prdid" hidden>
                                 <div class="form-group">
                                     <label>Product Name</label>
                                     <input type="text" id="name">
+                                </div>
+                            </div>
+
+                            <div  style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+
+                            <div >
+                                <input type="text" id="prdid" hidden>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="select" id="category">
+                                        <option>DRY</option>
+                                        <option>WET</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -404,6 +415,7 @@
                             var nameInput = document.getElementById('name');
                             var rateFrom0Input = document.getElementById('rateFrom0');
                             var rateFrom50Input = document.getElementById('rateFrom50');
+                            var catSelect=document.getElementById('category');
                             var unitSelect = document.getElementById('unit');
                             var descriptionTextarea = document.getElementById('description');
 
@@ -412,6 +424,15 @@
                             nameInput.value = data.name;
                             rateFrom0Input.value = data.rateFrom0;
                             rateFrom50Input.value = data.rateFrom50;
+
+                            // Set the selected option in the 'unit' dropdown
+                            var catOptions = catSelect.options;
+                            for (var i = 0; i < catOptions.length; i++) {
+                                if (catOptions[i].text === data.unit) {
+                                    catOptions[i].selected = true;
+                                    break;
+                                }
+                            }
 
                             // Set the selected option in the 'unit' dropdown
                             var unitOptions = unitSelect.options;
@@ -442,6 +463,7 @@
             const productName = document.getElementById('name').value;
             const rateFrom0 = document.getElementById('rateFrom0').value;
             const rateFrom50 = document.getElementById('rateFrom50').value;
+            const category=document.getElementById('category').value;
             const unit = document.getElementById('unit').value;
             const description = document.getElementById('description').value;
 
@@ -456,6 +478,7 @@
                     name: productName,
                     rateFrom0: rateFrom0,
                     rateFrom50: rateFrom50,
+                    category:category,
                     unit: unit,
                     description: description
                 };

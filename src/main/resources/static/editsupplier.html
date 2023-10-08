@@ -259,69 +259,34 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-12">
+                                <input type="text" id="id" hidden>
                                 <div class="form-group">
                                     <label>Supplier Name</label>
-                                    <input type="text" value="Apex Computers">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" value="Apexcomputers@example.com">
+                                    <input type="text" id="name">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input type="text" value="+12163547758 ">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Choose Country</label>
-                                    <select class="select">
-                                        <option>United States</option>
-                                        <option>India</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <select class="select">
-                                        <option>Newyork</option>
-                                        <option>City 1</option>
-                                    </select>
+                                    <input type="text" id="phone">
                                 </div>
                             </div>
                             <div class="col-lg-9 col-12">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" value="132, My Street, Kingston, New York ">
+                                    <input type="text" id="address">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea
-                                        class="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </textarea>
+                                    <textarea class="form-control" id="description"></textarea>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label> Avatar</label>
-                                    <div class="image-upload">
-                                        <input type="file">
-                                        <div class="image-uploads">
-                                            <img src="assets/img/icons/upload.svg" alt="img">
-                                            <h4>Drag and drop a file to upload</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <a class="btn btn-submit me-2">Update</a>
-                                <a class="btn btn-cancel">Cancel</a>
+                                <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+                                <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -331,7 +296,129 @@
         </div>
     </div>
 
+      <!-- Modal HTML -->
+      <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content"></div>
+        </div>
+    </div>
 
+    <script>
+        // Function to retrieve URL parameters by name
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            var results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Function to update the content of an element by ID
+        function updateElementContentById(elementId, content) {
+            var element = document.getElementById(elementId);
+            if (element) {
+                element.value = content;
+            }
+        }
+
+        // Fetch data using Axios when the page is loaded
+        window.addEventListener('load', function () {
+
+            // Get the 'id' parameter from the URL
+            var id = getParameterByName('id');
+
+            // Check if the 'id' parameter is present
+            if (id) {
+                // Make an Axios request to fetch data based on the 'id'
+                axios.get(`/api/person/${id}`)
+                    .then(function (response) {
+                        console.log(response.data)
+                        if (response.status === 200 && response.data) {
+                            var data = response.data;
+                            // Update the content of the HTML elements with retrieved data
+                            updateElementContentById('id', data.id);
+                            updateElementContentById('name', data.name);
+                            updateElementContentById('phone', data.phone);
+                            updateElementContentById('address', data.address);
+                            updateElementContentById('description', data.description);
+                        } else {
+                            console.error('Failed to fetch supplier data');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('An error occurred while fetching supplier data:', error);
+                    });
+            } else {
+                console.error('No "id" parameter found in the URL');
+            }
+        });
+
+         // Function to handle form submission
+         function handleSubmit() {
+            // Get values from HTML elements
+            const id = document.getElementById('id').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const type = "SUPPLIER";
+            const description = document.getElementById('description').value;
+
+            // Validate the values (you can add more validation as needed)
+            if (!name || !phone || !address || !description) {
+                modalPop('Please fill in all fields.')
+            }
+            else {
+                // Create an object to hold the data
+                const supplierData = {
+                    id:id,
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    type: type,
+                    description: description
+                };
+
+                // Send a POST request to your backend using Axios
+                axios.put('/api/person', supplierData)
+                    .then(response => {
+                        modalPop('Supplier added successfully.')
+                        window.location.href = 'supplierlist.html';
+                        // Optionally, you can redirect to another page after successful submission
+                        // window.location.href = 'productlist.html';
+                    })
+                    .catch(error => {
+                        modalPop('Error adding supplier. Please try again.')
+                        console.error(error);
+                    });
+            }
+        }
+
+
+        //modal populate code
+        function modalPop(value) {
+            const modal = document.getElementById('resultModal');
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = '<p>' + value + '</p>';
+
+            // Display the modal
+            modal.style.display = 'block';
+
+            // Close the modal when the user clicks the close button
+            const closeBtn = document.querySelector('.close');
+            closeBtn.onclick = function () {
+                modal.style.display = 'none';
+                window.location.href = 'supplierlist.html';
+            };
+            return;
+        }
+
+        // Add an event listener to the Submit button
+        document.querySelector('.btn-submit').addEventListener('click', handleSubmit);
+    </script>
+    <script src="assets/js/axios.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>

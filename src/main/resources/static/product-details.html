@@ -134,8 +134,7 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0" href="signin.html"><img
                                     src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
@@ -169,7 +168,7 @@
                                     Dashboard</span> </a>
                         </li>
                         <li style="background:rgba(234, 84, 85, .12)">
-                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
+                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
                                     POS</span> </a>
                         </li>
                         <li style="background: rgba(40, 199, 111, .12);">
@@ -276,6 +275,10 @@
                                             <h6 id="weightRange2"></h6>
                                         </li>
                                         <li>
+                                            <h4>Category</h4>
+                                            <h6 id="category"></h6>
+                                        </li>
+                                        <li>
                                             <h4>Unit</h4>
                                             <h6 id="unit"></h6>
                                         </li>
@@ -294,9 +297,7 @@
                                 <div class="slider-product-details">
                                     <div class="owl-carousel owl-theme product-slide">
                                         <div class="slider-product">
-                                            <img src="assets/img/product/product69.jpg" alt="img">
-                                            <h4>macbookpro.jpg</h4>
-                                            <h6>581kb</h6>
+                                            <img src="" id="imageUrl" alt="img">
                                         </div>
                                     </div>
                                 </div>
@@ -330,36 +331,38 @@
         }
 
         // Fetch data using Axios when the page is loaded
-window.addEventListener('load', function () {
+        window.addEventListener('load', function () {
 
-        // Get the 'id' parameter from the URL
-        var productId = getParameterByName('id');
+            // Get the 'id' parameter from the URL
+            var productId = getParameterByName('id');
 
-        // Check if the 'id' parameter is present
-        if (productId) {
-            // Make an Axios request to fetch data based on the 'id'
-            axios.get(`/api/product/${productId}`)
-                .then(function (response) {
-                    console.log(response.data)
-                    if (response.status === 200 && response.data) {
-                        var data=response.data;
-                       // Update the content of the HTML elements with retrieved data
-                        updateElementContentById('productName', data.name);
-                        updateElementContentById('weightRange1', data.rateFrom0);
-                        updateElementContentById('weightRange2', data.rateFrom50);
-                        updateElementContentById('unit', data.unit);
-                        updateElementContentById('description', data.description);
-                    } else {
-                        console.error('Failed to fetch product data');
-                    }
-                })
-                .catch(function (error) {
-                    console.error('An error occurred while fetching product data:', error);
-                });
-        } else {
-            console.error('No "id" parameter found in the URL');
-        }
-    });
+            // Check if the 'id' parameter is present
+            if (productId) {
+                // Make an Axios request to fetch data based on the 'id'
+                axios.get(`/api/product/${productId}`)
+                    .then(function (response) {
+                        console.log(response.data)
+                        if (response.status === 200 && response.data) {
+                            var data = response.data;
+                            // Update the content of the HTML elements with retrieved data
+                            updateElementContentById('productName', data.name);
+                            updateElementContentById('weightRange1', data.rateFrom0);
+                            updateElementContentById('weightRange2', data.rateFrom50);
+                            updateElementContentById('category', data.category);
+                            updateElementContentById('unit', data.unit);
+                            updateElementContentById('description', data.description);
+                            document.getElementById('imageUrl').src=data.imageUrl;
+                        } else {
+                            console.error('Failed to fetch product data');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('An error occurred while fetching product data:', error);
+                    });
+            } else {
+                console.error('No "id" parameter found in the URL');
+            }
+        });
     </script>
     <script src="assets/js/axios.js"></script>
 
