@@ -9,7 +9,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dreams Pos admin template</title>
+    <title>Spice Shop</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
@@ -34,17 +34,18 @@
     <div id="global-loader">
         <div class="whirly-loader"> </div>
     </div>
+    
     <div class="main-wrappers">
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
-        <div class="header" style="background-color: aqua;">
+        <div class="header" style="background:rgba(234, 84, 85, .12)"">
             <div class="header-left border-0 ">
                 <a href="index.html" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
                 <a href="index.html" class="logo-small">
-                    <img src="assets/img/logo-small.png" alt="">
+                    <img src="assets/img/logo.png" alt="">
                 </a>
             </div>
 
@@ -166,9 +167,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
-                            <div class="page-title">
-                                <h4>Categories</h4>
-                                <h6>Manage your purchases</h6>
+                            <div class="page-title" style="background:rgba(234, 84, 85, .12);padding: 1rem;border-radius: 8px;">
+                                <h4>Manage your purchases</h4>
                             </div>
                         </div>
 
@@ -192,10 +192,11 @@
                                     <div class="col-lg-12">
                                         <div class="select-split ">
                                             <div class="select-group w-100">
-                                                <select class="select">
-                                                    <option>Walk-in Supplier</option>
-                                                    <option>Aaaa</option>
-                                                </select>
+                                                <input type="text" list='suppliers'
+                                                    style="border:1px solid #637381;width:100%;border-radius: 4px; padding:6px 0 6px 0;">
+                                                <datalist id="suppliers">
+
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>
@@ -237,8 +238,11 @@
                                                 <h4>Price</h4>
                                             </div>
                                         </li>
-                                        <li><a class="confirm-text" href="javascript:void(0);"><img
-                                                    src="assets/img/icons/delete-2.svg" alt="img"></a></li>
+                                        <li>
+                                            <div class="totalitem">
+                                                <h4>Remove</h4>
+                                            </div>
+                                        </li>
                                     </ul>
                                     <style>
                                         .product-lists li {
@@ -355,7 +359,7 @@
             axios.get('/api/product')
                 .then(response => {
                     // Assuming the response.data is an array of products
-                    const products = response.data;   
+                    const products = response.data;
                     // Call a function to populate products with the retrieved data
                     addProductsToPage(products);
                 })
@@ -369,8 +373,8 @@
             //         { id: 1, name: "Rubber", quantity: 5.0 }
             //         // Add more products here
             //     ];
-            addProductsToPage(products);
-
+            // addProductsToPage(products);
+            loadSupplier();
 
         }
 
@@ -405,6 +409,9 @@
                 productSetImg.classList.add("productsetimg");
 
                 const productImage = document.createElement("img");
+                productImage.style.aspectRatio = "1/1"
+                productImage.style.width = "100px";
+                productImage.style.objectFit = "cover";
                 productImage.id = "imgDisplayed"
                 productImage.src = product.imageUrl;//product.image;
                 productImage.alt = "img";
@@ -573,9 +580,9 @@
             const total = document.querySelector('#total');
 
             // Create the invoice object
-            const invoice = {  
+            const invoice = {
                 "total": parseFloat(total.textContent.replace('Rs', '')),
-                "tradeType":"BOUGHT"
+                "tradeType": "BOUGHT"
             };
 
             // Send the invoice creation request
@@ -657,6 +664,31 @@
             };
             return;
         }
+
+        const loadSupplier = () => {
+            // axios.get('/api/supplier')
+            //     .then(response => {
+                    // Assuming the response.data is an array of products
+                    const optionsTemp = [
+                        { name: "Walk-in Supplier", id: Math.random() },
+                        { name: "Aaaa", id: Math.random() },
+                        { name: "Lorem ipsum dolor sit, amet", id: Math.random() },
+                        { name: "ipsum dolor sit, amet", id: Math.random() },
+                        { name: "dolor sit, amet", id: Math.random() },
+                        { name: "sadasd sit, amet", id: Math.random() },
+                        { name: "asdasda sit, amet", id: Math.random() },
+                        { name: "Walk-in Supplier", id: Math.random() },
+                        { name: "Aaaa", id: Math.random() },
+                    ]
+                    const suppliers = optionsTemp ?? response.data;
+                    const options = suppliers.map(supplier => `<option>${supplier.name} ${supplier.id}</option>`)
+                    document.querySelector("#suppliers").innerHTML = options
+                // })
+                // .catch(error => {
+                //     modalPop('Error fetching products:', error)
+                // });
+        }
+
     </script>
     <script src="assets/js/axios.js"></script>
 

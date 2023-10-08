@@ -12,12 +12,18 @@
     <title>Spice Shop</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="assets/css/animate.css">
+
     <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
     <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -173,7 +179,7 @@
                                     Product</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="productlist.html">Product List</a></li>
-                                <li><a href="addproduct.html" class="active">Add Product</a></li>
+                                <li><a href="addproduct.html">Add Product</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -195,7 +201,7 @@
                                     People</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="buyerlist.html">Buyer List</a></li>
-                                <li><a href="addbuyer.html">Add Buyer </a></li>
+                                <li><a href="addbuyer.html" class="active">Add Buyer </a></li>
                                 <li><a href="supplierlist.html">Supplier List</a></li>
                                 <li><a href="addsupplier.html">Add Supplier </a></li>
                             </ul>
@@ -245,55 +251,47 @@
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Product Add</h4>
-                        <h6>Create new product</h6>
+                        <h4>buyer Management</h4>
+                        <h6>Add/Update buyer</h6>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg12">
-                                <div class="form-group">
-                                    <label>Product Name</label>
-                                    <input type="text" id="name">
-                                </div>
-                            </div>
-
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Weight loss rate from 0% to 50%</label>
-                                    <!-- <input type="number" step="0.01"> -->
-                                    <input type="text" id="rateFrom0">
+                                    <label>buyer Name</label>
+                                    <input type="text">
                                 </div>
                             </div>
-
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Weight loss rate from 50% to 100%</label>
-                                    <!-- <input type="number" step="0.01"> -->
-                                    <input type="text" id="rateFrom50">
+                                    <label>Email</label>
+                                    <input type="text">
                                 </div>
                             </div>
-
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Unit</label>
-                                    <select class="select" id="unit">
-                                        <option>Kilogram (Kg)</option>
-                                        <option>Count</option>
-                                    </select>
+                                    <label>Phone</label>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-12">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea class="form-control" id="description"></textarea>
+                                    <textarea class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label> Product Image</label>
+                                    <label> Avatar</label>
                                     <div class="image-upload">
                                         <input type="file">
                                         <div class="image-uploads">
@@ -305,7 +303,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-                                <a href="productlist.html" class="btn btn-cancel">Cancel</a>
+                                <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -315,96 +313,24 @@
         </div>
     </div>
 
-    <!-- Modal HTML -->
-    <div id="resultModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-content"></div>
-        </div>
-    </div>
-
-    <!-- ------------------------------------------------------------------------------------------------- -->
-    <!-- ------------------------------------------------------------------------------------------------- -->
-    <!-- ------------------------------------------------------------------------------------------------- -->
-
-  
-    <script>
-        // Function to handle form submission
-        function handleSubmit() {
-            // Get values from HTML elements
-            const productName = document.getElementById('name').value;
-            const rateFrom0 = document.getElementById('rateFrom0').value;
-            const rateFrom50 = document.getElementById('rateFrom50').value;
-            const unit = document.getElementById('unit').value;
-            const description = document.getElementById('description').value;
-
-            // Validate the values (you can add more validation as needed)
-            if (!productName || !rateFrom0 || !rateFrom50 || !unit || !description) {
-                modalPop('Please fill in all fields.')
-            }
-            else {
-                // Create an object to hold the data
-                const productData = {
-                    name: productName,
-                    rateFrom0: rateFrom0,
-                    rateFrom50: rateFrom50,
-                    unit: unit,
-                    description: description
-                };
-
-                // Send a POST request to your backend using Axios
-                axios.post('/api/product', productData)
-                    .then(response => {
-                        modalPop('Product added successfully.')
-                        window.location.href = 'productlist.html'; 
-                        // Optionally, you can redirect to another page after successful submission
-                        // window.location.href = 'productlist.html';
-                    })
-                    .catch(error => {
-                        modalPop('Error adding product. Please try again.')
-                        console.error(error);
-                    });
-            }
-        }
-
-
-        //modal populate code
-        function modalPop(value) {
-            const modal = document.getElementById('resultModal');
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = '<p>' + value + '</p>';
-
-            // Display the modal
-            modal.style.display = 'block';
-
-            // Close the modal when the user clicks the close button
-            const closeBtn = document.querySelector('.close');
-            closeBtn.onclick = function () {
-                modal.style.display = 'none';
-                window.location.href = 'productlist.html'; 
-            };
-            return;
-        }
-
-        // Add an event listener to the Submit button
-        document.querySelector('.btn-submit').addEventListener('click', handleSubmit);
-    </script>
-
-
-    <script src="assets/js/axios.js"></script>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
+
     <script src="assets/js/feather.min.js"></script>
+
     <script src="assets/js/jquery.slimscroll.min.js"></script>
+
     <script src="assets/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+
     <script src="assets/plugins/select2/js/select2.min.js"></script>
+
     <script src="assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
-    <script src="assets/js/script.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
