@@ -91,7 +91,7 @@
                         <div class="noti-content">
                             <ul class="notification-list">
                                 <li class="notification-message">
-                                    <a href="activities.html">
+                                    <a href="#">
                                         <div class="media d-flex">
                                             <span class="avatar flex-shrink-0">
                                                 <img alt="" src="assets/img/profiles/avatar-13.jpg">
@@ -109,7 +109,7 @@
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
-                            <a href="activities.html">View all Notifications</a>
+                            <a href="#">View all Notifications</a>
                         </div>
                     </div>
                 </li>
@@ -130,9 +130,9 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+                            <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                            <a class="dropdown-item" href="#"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0" href="signin.html"><img
@@ -260,52 +260,26 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Supplier Name</label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text">
+                                    <label>Buyer Name</label>
+                                    <input type="text" id="name">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Choose Country</label>
-                                    <select class="select">
-                                        <option>Choose Country</option>
-                                        <option>India</option>
-                                        <option>USA</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <select class="select">
-                                        <option>Choose City</option>
-                                        <option>City 1</option>
-                                        <option>City 2</option>
-                                    </select>
+                                    <input type="text" id="phone">
                                 </div>
                             </div>
                             <div class="col-lg-9 col-12">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text">
+                                    <input type="text" id="address">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control" id="description"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -332,6 +306,77 @@
         </div>
     </div>
 
+    <!-- Modal HTML -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+    <script>
+        // Function to handle form submission
+        function handleSubmit() {
+            // Get values from HTML elements
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const type = "BUYER";
+            const description = document.getElementById('description').value;
+
+            // Validate the values (you can add more validation as needed)
+            if (!name || !phone || !address || !description) {
+                modalPop('Please fill in all fields.')
+            }
+            else {
+                // Create an object to hold the data
+                const buyerData = {
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    type: type,
+                    description: description
+                };
+
+                // Send a POST request to your backend using Axios
+                axios.post('/api/person', buyerData)
+                    .then(response => {
+                        modalPop('Buyer added successfully.')
+                        window.location.href = 'buyerlist.html';
+                        // Optionally, you can redirect to another page after successful submission
+                        // window.location.href = 'productlist.html';
+                    })
+                    .catch(error => {
+                        modalPop('Error adding buyer. Please try again.')
+                        console.error(error);
+                    });
+            }
+        }
+
+
+        //modal populate code
+        function modalPop(value) {
+            const modal = document.getElementById('resultModal');
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = '<p>' + value + '</p>';
+
+            // Display the modal
+            modal.style.display = 'block';
+
+            // Close the modal when the user clicks the close button
+            const closeBtn = document.querySelector('.close');
+            closeBtn.onclick = function () {
+                modal.style.display = 'none';
+                window.location.href = 'buyerlist.html';
+            };
+            return;
+        }
+
+        // Add an event listener to the Submit button
+        document.querySelector('.btn-submit').addEventListener('click', handleSubmit);
+    </script>
+
+
+    <script src="assets/js/axios.js"></script>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
