@@ -1,6 +1,7 @@
 package com.mush.spiceShop.dto;
 
 import com.mush.spiceShop.domain.Invoice;
+import com.mush.spiceShop.domain.Person;
 import com.mush.spiceShop.domain.Product;
 import lombok.Data;
 
@@ -22,4 +23,5 @@ public class TransactionInputDTO {
     Instant lastModifiedAt;
     Invoice invoice;
     Product product;
+    Person person;
 }

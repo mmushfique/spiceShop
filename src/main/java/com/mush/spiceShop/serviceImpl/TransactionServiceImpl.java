@@ -40,10 +40,16 @@ public class TransactionServiceImpl implements TransactionService {
             transaction=transactionRepository.save(transaction);
 
             Inventory inventory=new Inventory();
+            inventory.setProduct(trans.getProduct());
             inventory.setTransaction(transaction);
             inventory.setModifiedWeight(trans.getQtyAfterDropped());
-            inventory.setDried(trans.getDried());
             inventory.setModifiedDryPercent(trans.getDryPercent());
+            inventory.setQuality(trans.getQuality());
+            if(trans.getDryPercent()>97){
+                inventory.setDried(true);
+            }else{
+                inventory.setDried(false);
+            }
             inventoryService.save(inventory);
 
             Stock stock=new Stock();

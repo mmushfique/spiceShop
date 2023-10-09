@@ -34,14 +34,14 @@
     <div id="global-loader">
         <div class="whirly-loader"> </div>
     </div>
-    
+
     <div class="main-wrappers">
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------- -->
-        <div class="header" style="background:rgba(234, 84, 85, .12)"">
-            <div class="header-left border-0 ">
-                <a href="index.html" class="logo">
+        <div class="header" style="background:rgba(234, 84, 85, .12)">
+            <div class=" header-left border-0 ">
+                <a href=" index.html" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
                 <a href="index.html" class="logo-small">
@@ -116,7 +116,7 @@
                                 <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
-                                    <h6>John Doe</h6>
+                                    <h6>Mushfique</h6>
                                     <h5>Admin</h5>
                                 </div>
                             </div>
@@ -167,12 +167,14 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
-                            <div class="page-title" style="background:rgba(234, 84, 85, .12);padding: 1rem;border-radius: 8px;">
+                            <div class="page-title"
+                                style="background:rgba(234, 84, 85, .12);padding: 1rem;border-radius: 8px;">
                                 <h4>Manage your purchases</h4>
                             </div>
                         </div>
 
                         <div class="row" id="productContainer">
+
                         </div>
                     </div>
 
@@ -187,15 +189,16 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <a href="addsupplier.html" class="btn btn-adds"><i
-                                                class="fa fa-plus me-2"></i>Add Supplier</a>
+                                                class="fa fa-plus me-2"></i>Add
+                                            Supplier</a>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="select-split ">
                                             <div class="select-group w-100">
-                                                <input type="text" list='suppliers'
+                                                <input type="text" list='suppliers' id="supplier"
                                                     style="border:1px solid #637381;width:100%;border-radius: 4px; padding:6px 0 6px 0;">
                                                 <datalist id="suppliers">
-
+                                                    <option>Walk-In-Supplier</option>
                                                 </datalist>
                                             </div>
                                         </div>
@@ -205,22 +208,21 @@
 
                             <div class="card-body pt-0">
                                 <div class="totalitem">
-                                    <h4>Total items : 4</h4>
+                                    <h4 id="totalItems"></h4>
                                     <a href="javascript:void(0);">Clear all</a>
                                 </div>
                                 <div class="product-table" id="productTable">
                                     <ul class="product-lists">
                                         <li>
                                             <div class="productimg">
-                                                <div class="productimgs">
-                                                    <img src="" alt="img">
+                                                <div class="totalitem">
                                                     <h4>Product</h4>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="totalitem">
-                                                <h4>Price per unit</h4>
+                                                <h4>Price<br>per unit</h4>
                                             </div>
                                         </li>
                                         <li>
@@ -230,7 +232,7 @@
                                         </li>
                                         <li>
                                             <div class="totalitem">
-                                                <h4>Qty after dropped</h4>
+                                                <h4>Qty after<br>cut down</h4>
                                             </div>
                                         </li>
                                         <li>
@@ -300,6 +302,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <!-- Modal HTML -->
     <div id="resultModal" class="modal">
         <div class="modal-content">
@@ -310,343 +316,332 @@
 
 
     <!-- ------------------------------------invoice modal------------------ ------------------------------------>
-    <!-- ------------------------------------------------------------------------------------------------------- -->
     <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Product-rubber</h5>
+                    <h5 class="modal-title" id="productTitle"></h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label>Price per unit</label>
-                                <input type="number" step=".01" id="pricePerUnit">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div
+                                style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" step=".01" id="quantity-m">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cut Quantity</label>
+                                    <input type="number" step=".01" id="dropQty-m">
+                                </div>
+                            </div>
+
+                            <div
+                                style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+
+                                <div class="form-group">
+                                    <label>Price per unit</label>
+                                    <input type="number" step=".01" id="pricePerUnit-m">
+                                </div>
+                                <div class="form-group">
+                                    <label>Dried percentage</label>
+                                    <input type="number" step=".01" id="driedPercentage-m">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="number" step=".01" id="quantity">
+                                <label>Product quality</label>
+                                <select class="select" id="quality">
+                                    <option>Good</option>
+                                    <option>Average</option>
+                                    <option>Bad</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label>Drop quantity</label>
-                                <input type="number" step=".01" id="dropQty">
-                            </div>
-                            <input type="hidden" id="productIdInput" name="productId">
-                            <input type="hidden" id="productNameInput" name="productName">
+                            <input type="hidden" id="productIdInput">
+                            <input type="hidden" id="productNameInput">
+                            <input type="hidden" id="productImageUrlInput">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2" onclick="addData()">Submit</a>
+                        <a class="btn btn-submit me-2" onclick="addTransactionDataToList()">Submit</a>
                         <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ------------------------------------invoice modal----------------------------------------->
-    <!-- ------------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------invoice modal  END----------------------------------------->
+    <template id="product-template">
+        <div class="col-lg-4 col-sm-2 d-flex" id="image">
+            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#create">
+                <div class="productset flex-fill active">
+                    <div class="productsetimg">
+                        <img style="aspect-ratio: 1/1; width: 100px; object-fit: cover;" id="imgDisplayed" alt="img">
+                    </div>
+                    <div id="productDet" class="productsetcontent">
+                        <h4></h4>
+                        <h4 style="font-size:10px;"></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </template>
 
-
+    <template id="transaction-item-template">
+        <ul class="product-lists" data-id="">
+            <li class="productimg">
+                <div class="productimgs"><img alt="img">
+                    <h4></h4>
+                    <input type="hidden" id="id">
+                    <input type="hidden" id="quality">
+                    <input type="hidden" id="driedPercentage">
+                </div>
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li class='total'></li>
+            <li data-action="delete">
+                <button class="confirm-text" style='background-color: transparent; border: none;'>
+                    <img src="assets/img/icons/delete-2.svg" alt="img" />
+                </button>
+            </li>
+        </ul>
+    </template>
 
     <script>
-
-        ///////////// Make a GET request to retrieve products///////////////////////////////////
         window.onload = function () {
-            axios.get('/api/product')
-                .then(response => {
-                    // Assuming the response.data is an array of products
-                    const products = response.data;
-                    // Call a function to populate products with the retrieved data
-                    addProductsToPage(products);
-                })
-                .catch(error => {
-                    modalPop('Error fetching products:', error)
-                });
-
             // const products =
             //     [
-            //         { id: 1, name: "Rubber", quantity: 5.0 },
-            //         { id: 1, name: "Rubber", quantity: 5.0 }
+            //         { id: 1, name: "Rubber", quantity: 5.0, imageUrl: "" },
+            //         { id: 2, name: "Rubber", quantity: 5.0, imageUrl: "" }
             //         // Add more products here
             //     ];
             // addProductsToPage(products);
+            loadProducts();
             loadSupplier();
 
         }
 
-        // Function to add products to the HTML structure
+        // Function to add products to the categories
         function addProductsToPage(products) {
-            const productContainer = document.getElementById("productContainer");
+            var templateImage = document.querySelector('template').content.querySelector('div');
+            var productContainer = document.getElementById("productContainer");
+            let dataArray = "";
 
-            // Loop through your product data and create HTML elements
-            products.forEach(product => {
-                const productDiv = document.createElement("div");
-                productDiv.classList.add("col-lg-4", "col-sm-2", "d-flex");
+            ////////////////
+            products.forEach(function (item) {
+                // Clone the template row
+                var newImage = templateImage.cloneNode(true);
 
-                const productLink = document.createElement("a");
-                productLink.href = "javascript:void(0);";
-                productLink.dataset.bsToggle = "modal";
-                productLink.dataset.bsTarget = "#create";
+                // Populate the cloned row with data
+                newImage.querySelector('#imgDisplayed').src = item.imageUrl;
+                newImage.querySelectorAll('#productDet h4')[0].textContent = item.name;
+                newImage.querySelectorAll('#productDet h4')[1].textContent = item.category;
 
-                // Add click event listener to the productLink to handle product selection
-                productLink.addEventListener("click", function () {
+                newImage.setAttribute("data-id", `${item.id}`);
+                newImage.setAttribute("data-name", `${item.name}`);
+                dataArray += newImage.outerHTML;
+            });
+
+            productContainer.innerHTML = dataArray;
+
+            document.querySelectorAll('#image').forEach((img) =>
+                img.addEventListener("click", function () {
+
                     // Set the product ID and name as hidden input values in the form
                     const productIdInput = document.getElementById("productIdInput");
                     const productNameInput = document.getElementById("productNameInput");
-                    productIdInput.value = product.id;
-                    productNameInput.value = product.name;
-                });
+                    const productImageUrlInput = document.getElementById("productImageUrlInput");
+                    const modalTitle = document.getElementById("productTitle");
 
 
-                const productSet = document.createElement("div");
-                productSet.classList.add("productset", "flex-fill", "active");
+                    const title = `${img.querySelectorAll('#productDet h4')[0].textContent} ${img.querySelectorAll('#productDet h4')[1].textContent}`;
 
-                const productSetImg = document.createElement("div");
-                productSetImg.classList.add("productsetimg");
+                    modalTitle.textContent = title;
+                    productIdInput.value = this.getAttribute('data-id');
+                    productNameInput.value = this.getAttribute('data-name');
+                    productImageUrlInput.value = img.querySelector('#imgDisplayed').src;
 
-                const productImage = document.createElement("img");
-                productImage.style.aspectRatio = "1/1"
-                productImage.style.width = "100px";
-                productImage.style.objectFit = "cover";
-                productImage.id = "imgDisplayed"
-                productImage.src = product.imageUrl;//product.image;
-                productImage.alt = "img";
-
-                const productSetContent = document.createElement("div");
-                productSetContent.classList.add("productsetcontent");
-
-                const productName = document.createElement("h4");
-                productName.textContent = product.name;
-
-                // Append elements to create the product structure
-                productSetImg.appendChild(productImage);
-                productSetContent.appendChild(productName);
-                productSet.appendChild(productSetImg);
-                productSet.appendChild(productSetContent);
-                productLink.appendChild(productSet);
-                productDiv.appendChild(productLink);
-
-                // Append the productDiv to the productContainer
-                productContainer.appendChild(productDiv);
-            });
+                }))
         }
-        /////// END ////// Make a GET request to retrieve products///////////////////////////////////
 
         //////////////////////////function to add data to table from create modal/////////////////////////////////////////
-        function addData() {
-            // Get the input values
-            const pricePerUnit = document.querySelector('#pricePerUnit').value;
-            const quantity = document.querySelector('#quantity').value;
-            const dropQty = document.querySelector('#dropQty').value;
-            const price = pricePerUnit * (quantity - dropQty);
-            const id = document.querySelector('#productIdInput').value;
-            const name = document.querySelector('#productNameInput').value;
-            const imgElementDisplayed = document.querySelector('#imgDisplayed');
-            const imgUrl = imgElementDisplayed.src;
+        function addTransactionDataToList() {
+            // const imgElementDisplayed = document.querySelector('#imgDisplayed');
+            // const imgUrl = imgElementDisplayed.src;
 
-            // Create a new <ul> element for the record
-            const ulElement = document.createElement('ul');
-            ulElement.classList.add('product-lists');
+            const template = document.querySelector("#transaction-item-template").content
+            const templateContent = template.cloneNode(true).querySelector("ul");
 
-            // Create <li> elements for the record data
-            const liElements = [];
+            const id = document.querySelector("#productIdInput").value
+            const name = document.querySelector("#productNameInput").value
+            const imgUrl = document.querySelector("#productImageUrlInput").value
 
-            // Create the first column with image and product name
-            const liImageContainer = document.createElement('li');
-            liImageContainer.classList.add('productimg');
+            const pricePerUnit = document.querySelector("#pricePerUnit-m").value;
+            const quantity = document.querySelector("#quantity-m").value;
+            const cutQty = document.querySelector('#dropQty-m').value;
+            const driedPercentage = document.querySelector('#driedPercentage-m').value;
+            const quality = document.querySelector('#quality').value;
+            const qtyAfterDropped = quantity - cutQty;
 
-            const divProductImages = document.createElement('div');
-            divProductImages.classList.add('productimgs');
+            ///////////////////////////////////////
+            templateContent.querySelector("h4").textContent = name
+            templateContent.querySelector("#id").value = id
+            templateContent.querySelector("#quality").value = quality
+            templateContent.querySelector("#driedPercentage").value = driedPercentage
 
-            const imgElement = document.createElement('img');
-            imgElement.src = imgUrl;
-            imgElement.alt = 'img';
+            templateContent.querySelectorAll("li")[0].querySelector('img').src = imgUrl
+            templateContent.querySelectorAll("li")[1].textContent = pricePerUnit
+            templateContent.querySelectorAll("li")[2].textContent = quantity
+            templateContent.querySelectorAll("li")[3].textContent = qtyAfterDropped
+            templateContent.querySelector(".total").textContent = calculateTotal(qtyAfterDropped, pricePerUnit)
 
-            divProductImages.appendChild(imgElement);
-            liImageContainer.appendChild(divProductImages);
+            const randomId = Math.random() + Date.now()
+            templateContent.setAttribute("data-id", randomId)
 
-            // Here, we'll create the <h4> element for the product name and add it to divProductImages
-            const productName = document.createElement('h4');
-            const productId = document.createElement('h4');
-            productId.style.display = 'none'
-            productId.textContent = id;
-            productName.textContent = name;
-            divProductImages.appendChild(productName);
-            divProductImages.appendChild(productId)
+            const productTable = document.querySelector("#productTable")
+            productTable.appendChild(templateContent);
 
-            liElements.push(liImageContainer);
+            //adding event listener after adding to dom
+            const deleteButton = productTable.querySelector(`[data-id='${randomId}'] [data-action='delete'] button`)
+            deleteButton.addEventListener('click', () => {
+                const parentUl = deleteButton.parentElement.parentElement
+                deleteTransactionItem(parentUl.dataset.id)
+            })
 
-            // Add the rest of the data to the <li> elements
-            for (let i = 0; i < 4; i++) {
-                const liElement = document.createElement('li');
-                // Customize this part to add specific data to each <li>
-                switch (i) {
-                    case 0:
-                        liElement.textContent = pricePerUnit;
-                        break;
-                    case 1:
-                        liElement.textContent = quantity;
-                        break;
-                    case 2:
-                        liElement.textContent = quantity - dropQty;
-                        break;
-                    case 3:
-                        liElement.textContent = price;
-                        break;
-                    default:
-                        break;
-                }
-                liElements.push(liElement);
-            }
+            reCalculateTotal()
 
-
-
-            // Create the delete button for the last column
-            const deleteButton = document.createElement('a');
-            deleteButton.classList.add('confirm-text');
-            deleteButton.href = 'javascript:void(0);';
-            // Customize this part to add your delete button content
-            deleteButton.innerHTML = '<img src="assets/img/icons/delete-2.svg" alt="img">';
-            const liDeleteButton = document.createElement('li');
-            liDeleteButton.appendChild(deleteButton);
-            liElements.push(liDeleteButton);
-
-            // Append the <li> elements to the <ul>
-            liElements.forEach(li => ulElement.appendChild(li));
-
-            // Append the new record to the product table
-            const productTable = document.querySelector('#productTable');
-            productTable.appendChild(ulElement);
-
-            // Clear the input fields
-            document.querySelector('#pricePerUnit').value = '';
-            document.querySelector('#quantity').value = '';
-            document.querySelector('#dropQty').value = '';
-
-            // Calculate the total sum of prices
-            const totalLabel = document.getElementById('total');
-            const totalLabel2 = document.getElementById('total2');
-            const currentTotal = parseFloat(totalLabel.textContent.replace('Rs', '')) || 0; // Get the current total, remove 'Rs' and convert to float
-            const newTotal = currentTotal + price; // Calculate the new total
-
-            // Update the total label
-            totalLabel.textContent = newTotal.toFixed(2) + 'Rs';
-            totalLabel2.textContent = newTotal.toFixed(2) + 'Rs';
-
-            // Add a click event listener to the delete button
-            deleteButton.addEventListener('click', function () {
-                // Find the parent <ul> element
-                const ulElement = this.closest('.product-lists');
-
-                // Check if the parent <ul> element exists
-                if (ulElement) {
-                    // Find the price element (5th <li>) within the clicked row
-                    const priceElement = ulElement.querySelectorAll('li')[4];
-                    const priceToRemove = parseFloat(priceElement.textContent);
-
-                    const currentTotal2 = parseFloat(totalLabel.textContent.replace('Rs', '')) || 0; // Get the current total, remove 'Rs' and convert to float
-                    const newTotal2 = currentTotal2 - priceToRemove; // Calculate the new total
-
-                    // Update the total label
-                    totalLabel.textContent = newTotal2.toFixed(2) + 'Rs';
-                    totalLabel2.textContent = newTotal2.toFixed(2) + 'Rs';
-
-                    // Remove the <ul> element from the table
-                    ulElement.remove();
-                }
-            });
-
-            // Close the modal
             const createModal = document.getElementById('create');
             const modal = bootstrap.Modal.getInstance(createModal);
             if (modal) {
                 modal.hide();
             }
+            // Clear the input fields
+            document.querySelector('#pricePerUnit-m').value = '';
+            document.querySelector('#quantity-m').value = '';
+            document.querySelector('#dropQty-m').value = '';
+            document.querySelector('#driedPercentage-m').value = '';
         }
-        ///// END ////////////function to add data to table from create modal/////////////////////////////////////////
+
+        function calculateTotal(quantity, pricePerUnit) {//totalprice for each transaction
+            return quantity * pricePerUnit
+        }
+
+        function reCalculateTotal() {
+            const productTable = document.querySelector("#productTable")
+            const finalTotal = Array.from(productTable.querySelectorAll(".total")).reduce((accumulator, itemTotal) => accumulator + Number(itemTotal.textContent), 0)
+
+            const totalNode = document.querySelector("#total2")
+            totalNode.textContent = finalTotal
+            document.querySelector("#total").textContent = finalTotal
+
+            document.querySelector("#totalItems").textContent = `Total items: ${Array.from(productTable.querySelectorAll(".total")).length}`
+        }
+
+        function deleteTransactionItem(productId) {
+            const productTable = document.querySelector("#productTable")
+            const transactionItem = productTable.querySelector(`[data-id="${productId}"]`)
+
+            transactionItem.remove()
+            reCalculateTotal() //recalculates final total when an item is deleted
+        }
 
         ////////////////Send the records from table to server///////////////////////////
-
-        // Select the "Checkout" button by its id
         const checkoutButton = document.getElementById('checkoutTotal');
-
-        // Add a click event listener to the button
-        // Add a click event listener to the button
         checkoutButton.addEventListener('click', function () {
             const total = document.querySelector('#total');
-
-            // Create the invoice object
-            const invoice = {
+            const supplier = document.querySelector('#supplier').value;
+            const parts = supplier.split("-");
+            let id=null;
+            if (parts.length === 2) {id = parts[1];}
+            const invoice1 = {
+                "total": parseFloat(total.textContent.replace('Rs', '')),
+                "tradeType": "BOUGHT",
+                "person": {
+                    "id": id
+                }
+            };
+            const invoice2 = {
                 "total": parseFloat(total.textContent.replace('Rs', '')),
                 "tradeType": "BOUGHT"
             };
-
-            // Send the invoice creation request
+            const invoice=invoice2;
+            if(id!==null){invoice1}
             axios.post('/api/invoice', invoice)
                 .then(invoiceResponse => {
-                    // Handle the response from the server if needed
-                    // Get the newly created invoice's ID
                     const invoiceId = invoiceResponse.data.id;
-
-                    // Get all the records in the table
                     const productTableLists = document.querySelectorAll('.product-lists');
-
-                    // Create an array to store the records
                     const transactions = [];
-
-                    // Loop through each record in the table
                     for (let i = 1; i < productTableLists.length; i++) {
                         const table = productTableLists[i];
+                        const dried=false;
+                        if(table.querySelector('#driedPercentage').value>95){dried=true}
                         const record = {
                             "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
                             "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
                             "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
                             "price": parseFloat(table.querySelectorAll('li')[4].textContent),
-                            "dried": false,
-                            "dryPercent": 0.5,
+                            "dried": dried,
+                            "quality":table.querySelector('#quality').value,
+                            "dryPercent": parseFloat(table.querySelector('#driedPercentage').value),
                             "invoice": {
                                 "id": invoiceId // Use the invoice ID obtained earlier
                             },
                             "product": {
-                                "id": table.querySelectorAll('h4')[1].textContent,
-                                "name": table.querySelectorAll('h4')[0].textContent
+                                "id": table.querySelector('#id').textContent
                             }
                         };
 
                         transactions.push(record);
                     }
-                    console.log('transactions created:', transactions);
-                    // Send the records to your server using Axios
+
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
-                            // Handle the response from the server if needed
                             modalPop('Transaction successful');
                         })
                         .catch(error => {
-                            // Handle any errors that occur during the POST request
                             modalPop('Error sending transaction data:', error);
                         });
-
-                    // ... (clear input fields and other logic) ..
-                    // Clear the input fields or perform any other necessary actions
-                    // For example, clear the product table
                     const productTable = document.querySelector('#productTable');
                     productTable.innerHTML = '';
-                    // Reset the total value
                     document.getElementById('checkoutTotal').textContent = '0.00';
                 })
                 .catch(error => {
-                    // Handle any errors that occur during the invoice creation
                     modalPop('Error creating invoice:', error);
                 });
         });
 
 
         ///// END ///////////Send the records from table to server///////////////////////////
+
+        const loadProducts = () => {
+            axios.get('/api/product')
+                .then(response => {
+                    const products = response.data;
+                    addProductsToPage(products);
+
+                })
+                .catch(error => {
+                    modalPop('Error fetching products:', error)
+                });
+        }
+
+        const loadSupplier = () => {
+            axios.get('/api/person/supplier')
+                .then(response => {
+                    const suppliers = response.data;
+                    const options = suppliers.map(supplier => `<option>${supplier.name}-${supplier.id}</option>`)
+                    document.querySelector("#suppliers").innerHTML += options
+                })
+                .catch(error => {
+                    modalPop('Error fetching suppliers:', error)
+                });
+        }
 
         //modal pupulate code
         function modalPop(value) {
@@ -663,30 +658,6 @@
                 modal.style.display = 'none';
             };
             return;
-        }
-
-        const loadSupplier = () => {
-            // axios.get('/api/supplier')
-            //     .then(response => {
-                    // Assuming the response.data is an array of products
-                    const optionsTemp = [
-                        { name: "Walk-in Supplier", id: Math.random() },
-                        { name: "Aaaa", id: Math.random() },
-                        { name: "Lorem ipsum dolor sit, amet", id: Math.random() },
-                        { name: "ipsum dolor sit, amet", id: Math.random() },
-                        { name: "dolor sit, amet", id: Math.random() },
-                        { name: "sadasd sit, amet", id: Math.random() },
-                        { name: "asdasda sit, amet", id: Math.random() },
-                        { name: "Walk-in Supplier", id: Math.random() },
-                        { name: "Aaaa", id: Math.random() },
-                    ]
-                    const suppliers = optionsTemp ?? response.data;
-                    const options = suppliers.map(supplier => `<option>${supplier.name} ${supplier.id}</option>`)
-                    document.querySelector("#suppliers").innerHTML = options
-                // })
-                // .catch(error => {
-                //     modalPop('Error fetching products:', error)
-                // });
         }
 
     </script>

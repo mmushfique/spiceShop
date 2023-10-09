@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.Instant;
 
 @Data
@@ -15,10 +16,8 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Double total;
-//    @ManyToOne
-//    Supplier supplier;
-//    @ManyToOne
-//    Person buyer;
+    @ManyToOne
+    Person person;
     String tradeType;
     String createdBy;
     String lastModifiedBy;

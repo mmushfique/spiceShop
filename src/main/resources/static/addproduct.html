@@ -126,8 +126,7 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0" href="signin.html"><img
                                     src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
@@ -161,7 +160,7 @@
                                     Dashboard</span> </a>
                         </li>
                         <li style="background:rgba(234, 84, 85, .12)">
-                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
+                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
                                     POS</span> </a>
                         </li>
                         <li style="background: rgba(40, 199, 111, .12);">
@@ -254,7 +253,7 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <div >
+                            <div>
                                 <input type="text" id="prdid" hidden>
                                 <div class="form-group">
                                     <label>Product Name</label>
@@ -262,58 +261,60 @@
                                 </div>
                             </div>
 
-                            <div  style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+                            <div
+                                style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
 
-                            <div >
-                                <input type="text" id="prdid" hidden>
-                                <div class="form-group">
-                                    <label>Category</label>
-                                    <select class="select" id="category">
-                                        <option>DRY</option>
-                                        <option>WET</option>
-                                    </select>
+                                <div>
+                                    <input type="text" id="prdid" hidden>
+                                    <div class="form-group">
+                                        <label>Category</label>
+                                        <select class="select" id="category">
+                                            <option>DRY</option>
+                                            <option>WET</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="form-group">
+                                        <label>Unit</label>
+                                        <select class="select" id="unit">
+                                            <option>Kilogram (Kg)</option>
+                                            <option>Count</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div >
-                                <div class="form-group">
-                                    <label>Unit</label>
-                                    <select class="select" id="unit">
-                                        <option>Kilogram (Kg)</option>
-                                        <option>Count</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
 
                             <fieldset>
                                 <legend>Weight loss rate</legend>
 
-                                <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
 
-                                <div>
-                                    <div class="form-group">
-                                        <label>0%-50%</label>
-                                        <!-- <input type="number" step="0.01"> -->
-                                        <input type="text" id="rateFrom0">
+                                    <div>
+                                        <div class="form-group">
+                                            <label>0%-50%</label>
+                                            <!-- <input type="number" step="0.01"> -->
+                                            <input type="text" id="rateFrom0">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="form-group">
+                                            <label>50%-100%</label>
+                                            <!-- <input type="number" step="0.01"> -->
+                                            <input type="text" id="rateFrom50">
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <div class="form-group">
-                                        <label>50%-100%</label>
-                                        <!-- <input type="number" step="0.01"> -->
-                                        <input type="text" id="rateFrom50">
-                                    </div>
-                                </div>
-                            </div>
 
                             </fieldset>
 
 
 
-                            
+
 
 
                             <div class="col-lg-12">
@@ -379,7 +380,7 @@
     <!-- ------------------------------------------------------------------------------------------------- -->
     <!-- ------------------------------------------------------------------------------------------------- -->
 
-  
+
     <script>
         // Function to handle form submission
         function handleSubmit() {
@@ -387,7 +388,7 @@
             const productName = document.getElementById('name').value;
             const rateFrom0 = document.getElementById('rateFrom0').value;
             const rateFrom50 = document.getElementById('rateFrom50').value;
-            const category=document.getElementById('category').value;
+            const category = document.getElementById('category').value;
             const unit = document.getElementById('unit').value;
             const description = document.getElementById('description').value;
 
@@ -401,7 +402,7 @@
                     name: productName,
                     rateFrom0: rateFrom0,
                     rateFrom50: rateFrom50,
-                    category:category,
+                    category: category,
                     unit: unit,
                     description: description
                 };
@@ -410,7 +411,7 @@
                 axios.post('/api/product', productData)
                     .then(response => {
                         modalPop('Product added successfully.')
-                        window.location.href = 'productlist.html'; 
+                        window.location.href = 'productlist.html';
                         // Optionally, you can redirect to another page after successful submission
                         // window.location.href = 'productlist.html';
                     })
@@ -435,7 +436,7 @@
             const closeBtn = document.querySelector('.close');
             closeBtn.onclick = function () {
                 modal.style.display = 'none';
-                window.location.href = 'productlist.html'; 
+                window.location.href = 'productlist.html';
             };
             return;
         }
