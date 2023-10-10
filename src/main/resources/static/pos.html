@@ -596,10 +596,10 @@
                                 "id": table.querySelector('#id').textContent
                             }
                         };
-
+console.log(record)
                         transactions.push(record);
                     }
-
+console.log(transactions)
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
                             modalPop('Transaction successful');

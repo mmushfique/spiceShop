@@ -11,10 +11,12 @@ import com.mush.spiceShop.service.StockService;
 import com.mush.spiceShop.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
@@ -45,11 +47,7 @@ public class TransactionServiceImpl implements TransactionService {
             inventory.setModifiedWeight(trans.getQtyAfterDropped());
             inventory.setModifiedDryPercent(trans.getDryPercent());
             inventory.setQuality(trans.getQuality());
-            if(trans.getDryPercent()>97){
-                inventory.setDried(true);
-            }else{
-                inventory.setDried(false);
-            }
+            inventory.setDried(trans.getDried());
             inventoryService.save(inventory);
 
             Stock stock=new Stock();
