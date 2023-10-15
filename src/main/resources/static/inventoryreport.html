@@ -357,7 +357,7 @@
                     <th>Quality</th>
                     <th>In stock/Sold</th>
                     <th>Bought At</th>
-                    <th>Last updated At</th>
+                    <!-- <th>Last updated At</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -392,7 +392,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <!-- <td></td> -->
     </tr>
   </template>
 
@@ -430,13 +430,13 @@
 
         // Populate the cloned row with data
         newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[0].querySelector('img').src=item.product.imageUrl
-        newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[1].textContent = item.product?.name;
+        newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[1].innerHTML = item.product?.name+"<br>"+item.product?.category;
         newRow.querySelector('td:nth-child(3)').textContent = item.modifiedWeight;
         newRow.querySelector('td:nth-child(4)').textContent = item.modifiedDryPercent;
         newRow.querySelector('td:nth-child(5)').textContent = item.quality;
         newRow.querySelector('td:nth-child(6)').textContent = item.transactionStatus === "BOUGHT" ? "In stock" : "Sold"
         newRow.querySelector('td:nth-child(7)').textContent = item.createdAt;
-        newRow.querySelector('td:nth-child(8)').textContent = item.lastModifiedAt;
+        // newRow.querySelector('td:nth-child(8)').textContent = item.lastModifiedAt;
 
         dataArray += newRow.outerHTML;
       });
