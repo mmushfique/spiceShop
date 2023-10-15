@@ -327,7 +327,7 @@
                                 <div class="form-group">
                                     <label> Product Image</label>
                                     <div class="image-upload">
-                                        <input type="file">
+                                        <input type="file" id="imageInput" onchange="previewImage()">
                                         <div class="image-uploads">
                                             <img src="assets/img/icons/upload.svg" alt="img">
                                             <h4>Drag and drop a file to upload</h4>
@@ -339,18 +339,8 @@
                                 <div class="product-list">
                                     <ul class="row">
                                         <li>
-                                            <div class="productviews">
-                                                <div class="productviewsimg">
-                                                    <img src="assets/img/icons/macbook.svg" alt="img">
-                                                </div>
-                                                <div class="productviewscontent">
-                                                    <div class="productviewsname">
-                                                        <h2>macbookpro.jpg</h2>
-                                                        <h3>581kb</h3>
-                                                    </div>
-                                                    <a href="javascript:void(0);" class="hideset">x</a>
-                                                </div>
-                                            </div>
+                                            <img id="imagePreview" src="" alt="Image Preview"
+                                style="height: 200px; width: 200px;padding: 20px;display: none;">
                                         </li>
                                     </ul>
                                 </div>
@@ -438,6 +428,21 @@
                 modal.style.display = 'none';
             };
             return;
+        }
+
+
+        function previewImage() {
+            var fileInput = document.getElementById('imageInput');
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.style.display = 'inline';
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
         }
 
         // Add an event listener to the Submit button
