@@ -176,17 +176,17 @@
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
-                                    Sales</span> <span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="saleslist.html">Sales List</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
                             <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span>
                                     Purchase</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="purchaselist.html">Purchase List</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
+                                    Sales</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="saleslist.html">Sales List</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -204,7 +204,7 @@
                                     Report</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="inventoryreport.html">Inventory Report</a></li>
-                                <li><a href="stockreport.html">Sales Report</a></li>
+                                <li><a href="stockreport.html">Stock Report</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -411,9 +411,9 @@
                 axios.post('/api/product', productData)
                     .then(response => {
                         modalPop('Product added successfully.')
-                        window.location.href = 'productlist.html';
-                        // Optionally, you can redirect to another page after successful submission
-                        // window.location.href = 'productlist.html';
+                        setTimeout(function () {
+                            window.location.href = 'productlist.html';
+                        }, 500);
                     })
                     .catch(error => {
                         modalPop('Error adding product. Please try again.')
@@ -436,7 +436,6 @@
             const closeBtn = document.querySelector('.close');
             closeBtn.onclick = function () {
                 modal.style.display = 'none';
-                window.location.href = 'productlist.html';
             };
             return;
         }

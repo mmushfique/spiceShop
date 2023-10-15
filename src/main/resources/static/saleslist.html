@@ -213,7 +213,7 @@
                                 Report</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="inventoryreport.html">Inventory Report</a></li>
-                            <li><a href="stockreport.html">Sales Report</a></li>
+                            <li><a href="stockreport.html">Stock Report</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -448,7 +448,7 @@
 
         // Populate the cloned row with data
         newRow.querySelector('td:nth-child(2)').textContent = item.createdAt;
-        newRow.querySelector('td:nth-child(3)').textContent = item.id;//supplier name
+        newRow.querySelector('td:nth-child(3)').textContent = item.person!=null?item.person.name:null;//supplier name
         newRow.querySelector('td:nth-child(4)').textContent = item.total;
         newRow.querySelector('td:nth-child(5)').textContent = "Paid"
 

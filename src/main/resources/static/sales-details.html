@@ -211,7 +211,7 @@
                                     Report</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="inventoryreport.html">Inventory Report</a></li>
-                                <li><a href="stockreport.html">Sales Report</a></li>
+                                <li><a href="stockreport.html">Stock Report</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -283,20 +283,20 @@
                                             <table style="width: 100%;line-height: inherit;text-align: left;">
                                                 <tbody>
                                                     <tr>
-                                                        <td
+                                                        <td id="person"
                                                             style="padding:5px;vertical-align:top;text-align:left;padding-bottom:20px">
                                                             <font style="vertical-align: inherit;margin-bottom:25px;">
-                                                                <font
+                                                                <font 
                                                                     style="vertical-align: inherit;font-size:14px;color:#7367F0;font-weight:600;line-height: 35px; ">
                                                                     buyer Info</font>
                                                             </font><br>
                                                             <font style="vertical-align: inherit;">
-                                                                <font
+                                                                <font id="name"
                                                                     style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">
                                                                     walk-in-buyer</font>
                                                             </font><br>
                                                             <font style="vertical-align: inherit;">
-                                                                <font
+                                                                <font  id="address"
                                                                     style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">
                                                                     N45 , Dhaka</font>
                                                             </font><br>
@@ -432,6 +432,8 @@
         });
 
         function populateTable(data) {
+            document.querySelector('#person').querySelector('#name').innerHTML = data[0].invoice.person!=null?data[0].invoice.person.name:null;
+            document.querySelector('#person').querySelector('#address').innerHTML = data[0].invoice.person!=null?data[0].invoice.person.address:null;
             document.querySelector('#invoiceRef').innerHTML = data[0].invoice.id;
             document.querySelector('#editInvoice').href = `edit-sales.html?id=${data[0].invoice.id}`;
 

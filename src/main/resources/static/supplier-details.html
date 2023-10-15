@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
 
+    <link rel="stylesheet" href="assets/plugins/owlcarousel/owl.carousel.min.css">
+
     <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
@@ -132,8 +134,7 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0" href="signin.html"><img
                                     src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
@@ -167,7 +168,7 @@
                                     Dashboard</span> </a>
                         </li>
                         <li style="background:rgba(234, 84, 85, .12)">
-                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
+                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
                                     POS</span> </a>
                         </li>
                         <li style="background: rgba(40, 199, 111, .12);">
@@ -201,8 +202,8 @@
                                     People</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="buyerlist.html">Buyer List</a></li>
-                                <li><a href="addbuyer.html" class="active">Add Buyer </a></li>
-                                <li><a href="supplierlist.html">Supplier List</a></li>
+                                <li><a href="addbuyer.html">Add Buyer </a></li>
+                                <li><a href="supplierlist.html" class="active">Supplier List</a></li>
                                 <li><a href="addsupplier.html">Add Supplier </a></li>
                             </ul>
                         </li>
@@ -246,47 +247,39 @@
         <!-- ------------------------------------------------------------------------- -->
 
 
-
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Buyer Management</h4>
-                        <h6>Add buyer</h6>
+                        <h4>Supplier Details</h4>
+                        <h6>Full details of a supplier</h6>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Buyer Name</label>
-                                    <input type="text" id="name">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="productdetails">
+                                    <ul class="product-bar">
+                                        <li>
+                                            <h4>Supplier name</h4>
+                                            <h6 id="name"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Phone</h4>
+                                            <h6 id="phone"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Address</h4>
+                                            <h6 id="address"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Description</h4>
+                                            <h6 id="description"></h6>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Phone</label>
-                                    <input type="text" id="phone">
-                                </div>
-                            </div>
-                            <div class="col-lg-9 col-12">
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" id="address">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea class="form-control" id="description"></textarea>
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-12">
-                                <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-                                <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -296,92 +289,70 @@
         </div>
     </div>
 
-    <!-- Modal HTML -->
-    <div id="resultModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-content"></div>
-        </div>
-    </div>
-
     <script>
-        // Function to handle form submission
-        function handleSubmit() {
-            // Get values from HTML elements
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const type = "BUYER";
-            const description = document.getElementById('description').value;
+        // Function to retrieve URL parameters by name
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            var results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
 
-            // Validate the values (you can add more validation as needed)
-            if (!name || !phone || !address || !description) {
-                modalPop('Please fill in all fields.')
+        // Function to update the content of an element by ID
+        function updateElementContentById(elementId, content) {
+            var element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = content;
             }
-            else {
-                // Create an object to hold the data
-                const buyerData = {
-                    name: name,
-                    phone: phone,
-                    address: address,
-                    type: type,
-                    description: description
-                };
+        }
 
-                // Send a POST request to your backend using Axios
-                axios.post('/api/person', buyerData)
-                    .then(response => {
-                        modalPop('Buyer added successfully.')
-                        setTimeout(function () {
-                            window.location.href = 'buyerlist.html';
-                        }, 500);
+        // Fetch data using Axios when the page is loaded
+        window.addEventListener('load', function () {
+
+            // Get the 'id' parameter from the URL
+            var id = getParameterByName('id');
+
+            // Check if the 'id' parameter is present
+            if (id) {
+                // Make an Axios request to fetch data based on the 'id'
+                axios.get(`/api/person/${id}`)
+                    .then(function (response) {
+                        console.log(response.data)
+                        if (response.status === 200 && response.data) {
+                            var data = response.data;
+                            // Update the content of the HTML elements with retrieved data
+                            updateElementContentById('name', data.name);
+                            updateElementContentById('phone', data.phone);
+                            updateElementContentById('address', data.address);
+                            updateElementContentById('description', data.description);
+                        } else {
+                            console.error('Failed to fetch supplier data');
+                        }
                     })
-                    .catch(error => {
-                        modalPop('Error adding buyer. Please try again.')
-                        console.error(error);
+                    .catch(function (error) {
+                        console.error('An error occurred while fetching supplier data:', error);
                     });
+            } else {
+                console.error('No "id" parameter found in the URL');
             }
-        }
-
-
-        //modal populate code
-        function modalPop(value) {
-            const modal = document.getElementById('resultModal');
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = '<p>' + value + '</p>';
-
-            // Display the modal
-            modal.style.display = 'block';
-
-            // Close the modal when the user clicks the close button
-            const closeBtn = document.querySelector('.close');
-            closeBtn.onclick = function () {
-                modal.style.display = 'none';
-            };
-            return;
-        }
-
-        // Add an event listener to the Submit button
-        document.querySelector('.btn-submit').addEventListener('click', handleSubmit);
+        });
     </script>
-
-
     <script src="assets/js/axios.js"></script>
+
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>
 
     <script src="assets/js/jquery.slimscroll.min.js"></script>
 
-    <script src="assets/js/jquery.dataTables.min.js"></script>
-    <script src="assets/js/dataTables.bootstrap4.min.js"></script>
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/plugins/select2/js/select2.min.js"></script>
+    <script src="assets/plugins/owlcarousel/owl.carousel.min.js"></script>
 
-    <script src="assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-    <script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
+    <script src="assets/plugins/select2/js/select2.min.js"></script>
 
     <script src="assets/js/script.js"></script>
 </body>
