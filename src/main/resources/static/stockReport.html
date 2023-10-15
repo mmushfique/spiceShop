@@ -428,7 +428,7 @@
                 var newRow = templateRow.cloneNode(true);
 
                 // Populate the cloned row with data
-                newRow.querySelector('td:nth-child(1)').querySelectorAll('img').src = item.product.imageUrl
+                newRow.querySelector('td:nth-child(1)').querySelector('img').src = item.product.imageUrl
                 newRow.querySelector('td:nth-child(1)').querySelectorAll('a')[1].textContent = item.product.name;
                 newRow.querySelector('td:nth-child(2)').textContent = `${item.qty} ${item.product.unit}`;
 

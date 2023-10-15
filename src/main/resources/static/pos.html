@@ -348,7 +348,7 @@
                                     <label>Price per unit</label>
                                     <input type="number" step=".01" id="pricePerUnit-m" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="percent">
                                     <label>Dried percentage</label>
                                     <input type="number" step=".01" id="driedPercentage-m" required oninput="validateInput(this)">
                                 </div>
@@ -461,8 +461,16 @@
                     const productNameInput = document.getElementById("productNameInput");
                     const productImageUrlInput = document.getElementById("productImageUrlInput");
                     const modalTitle = document.getElementById("productTitle");
-
-
+                    const categorySelect=document.getElementById("percent");
+            
+                    const category=img.querySelectorAll('#productDet h4')[1].textContent;
+                    if(category==="DRY"){
+                        categorySelect.style.display="none"
+                        categorySelect.querySelector("input").value=100
+                    }else{
+                        categorySelect.style.display="block"
+                        categorySelect.querySelector("input").value=""
+                    }
                     const title = `${img.querySelectorAll('#productDet h4')[0].textContent} ${img.querySelectorAll('#productDet h4')[1].textContent}`;
 
                     modalTitle.textContent = title;
@@ -594,13 +602,18 @@
             if (id !== null) { invoice = invoice1 }
             axios.post('/api/invoice', invoice)
                 .then(invoiceResponse => {
+                    console.log(invoiceResponse.data)
                     const invoiceId = invoiceResponse.data.id;
                     const productTableLists = document.querySelectorAll('.product-lists');
                     const transactions = [];
+                    
                     for (let i = 1; i < productTableLists.length; i++) {
                         const table = productTableLists[i];
-                        const dried = false;
+                        let dried = false;
+                        
+
                         if (table.querySelector('#driedPercentage').value > 95) { dried = true }
+                        
                         const record = {
                             "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
                             "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
@@ -633,6 +646,7 @@
                     document.getElementById('checkoutTotal').textContent = '0.00';
                 })
                 .catch(error => {
+                    console.log(error.data)
                     modalPop('Error creating invoice:', error);
                 });
         });

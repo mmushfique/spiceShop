@@ -268,7 +268,7 @@
                                     <input type="text" id="prdid" hidden>
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="select" id="category">
+                                        <select class="select" id="category" onchange="percentFieldsChange()">
                                             <option>DRY</option>
                                             <option>WET</option>
                                         </select>
@@ -286,32 +286,32 @@
                                 </div>
                             </div>
 
+                            <div id="percent" style="display: none;">
+                                <fieldset>
+                                    <legend>Weight loss rate</legend>
 
-                            <fieldset>
-                                <legend>Weight loss rate</legend>
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
 
-                                <div
-                                    style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; padding-top: 10px;">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>0%-50%</label>
+                                                <!-- <input type="number" step="0.01"> -->
+                                                <input type="text" id="rateFrom0">
+                                            </div>
+                                        </div>
 
-                                    <div>
-                                        <div class="form-group">
-                                            <label>0%-50%</label>
-                                            <!-- <input type="number" step="0.01"> -->
-                                            <input type="text" id="rateFrom0">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>50%-100%</label>
+                                                <!-- <input type="number" step="0.01"> -->
+                                                <input type="text" id="rateFrom50">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <div class="form-group">
-                                            <label>50%-100%</label>
-                                            <!-- <input type="number" step="0.01"> -->
-                                            <input type="text" id="rateFrom50">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-
+                                </fieldset>
+                            </div>
 
 
 
@@ -340,7 +340,7 @@
                                     <ul class="row">
                                         <li>
                                             <img id="imagePreview" src="" alt="Image Preview"
-                                style="height: 200px; width: 200px;padding: 20px;display: none;">
+                                                style="height: 200px; width: 200px;padding: 20px;display: none;">
                                         </li>
                                     </ul>
                                 </div>
@@ -381,10 +381,16 @@
             const category = document.getElementById('category').value;
             const unit = document.getElementById('unit').value;
             const description = document.getElementById('description').value;
+            const imageFile = document.getElementById('imageInput').files[0];
 
             // Validate the values (you can add more validation as needed)
-            if (!productName || !rateFrom0 || !rateFrom50 || !unit || !description) {
+            if (!productName || !unit || !description || !imageFile) {
                 modalPop('Please fill in all fields.')
+            }
+            if(category==="WET"){
+                if ( !rateFrom0 || !rateFrom50 ) {
+                modalPop('Please fill in all fields.')
+            }
             }
             else {
                 // Create an object to hold the data
@@ -400,6 +406,22 @@
                 // Send a POST request to your backend using Axios
                 axios.post('/api/product', productData)
                     .then(response => {
+                        const productId = response.data.id; // Get the product ID from the response
+
+                        // Upload the image using the product ID in the URL
+                        const formData = new FormData();
+                        formData.append('imageFile', imageFile);
+
+                        axios.post(`/api/product/upload/${productId}`, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(imageResponse => {
+                            // Handle the image upload response
+                        }).catch(imageError => {
+                            // Handle image upload errors
+                        });
+
                         modalPop('Product added successfully.')
                         setTimeout(function () {
                             window.location.href = 'productlist.html';
@@ -442,6 +464,17 @@
                     imagePreview.src = e.target.result;
                 };
                 reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function percentFieldsChange() {
+            const obj = document.getElementById("percent")
+            const category = document.getElementById('category').value;
+            if (category === "WET") {
+                obj.style.display = 'block';
+            }
+            if (category=== "DRY") {
+                obj.style.display = 'none';
             }
         }
 
