@@ -317,11 +317,11 @@
                         "Content-Type": "multipart/form-data",
                     },
                 });
-
-                const prediction = response.data.prediction;
-
+                console.log(response.data)
+                const prediction = response.data.predicted_quality;
+                Swal.fire(`Quality : ${prediction}`)
                 // Display the prediction result (you can format it as needed)
-                predictionResult.innerHTML = `Prediction: ${JSON.stringify(prediction)}`;
+                // predictionResult.innerHTML = prediction;
             } catch (error) {
                 console.error("Error:", error);
             }
