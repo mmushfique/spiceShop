@@ -292,50 +292,21 @@
                     <div class="row">
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Product</option>
-                            <option>Macbook pro</option>
-                            <option>Orange</option>
-                          </select>
+                          <label>Date From</label>
+                          <input type="date" id="fromDate" class="form-control form-control-date">
                         </div>
                       </div>
+
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Category</option>
-                            <option>Computers</option>
-                            <option>Fruits</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Choose Sub Category</option>
-                            <option>Computer</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Brand</option>
-                            <option>N/D</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12 ">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Price</option>
-                            <option>150.00</option>
-                          </select>
+                          <label>Date To</label>
+                          <input type="date" id="toDate" class="form-control form-control-date">
                         </div>
                       </div>
                       <div class="col-lg-1 col-sm-6 col-12">
                         <div class="form-group">
-                          <a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg"
-                              alt="img"></a>
+                          <button id="filter" class="btn btn-filters ms-auto"><img
+                            src="assets/img/icons/search-whites.svg" alt="img"></button>
                         </div>
                       </div>
                     </div>
@@ -347,7 +318,7 @@
             <!-- filter--------------------------------------------------------------- -->
             <!-- filter--------------------------------------------------------------- -->
 
-
+            <input id="search" type="search" style="border: 1px solid #9f9f9f; border-radius: 4px;">
             <div class="table-responsive">
               <table class="table  datanew">
                 <thead>
@@ -458,6 +429,36 @@
       });
 
       tableBody.innerHTML = dataArray;
+
+    }
+   
+    const search = document.querySelector("#search");
+    const filter = document.querySelector("#filter");
+
+    search.addEventListener('input',filterFunction)
+    filter.addEventListener('click',filterFunction)
+
+    async function filterFunction() {
+      const searchValue=document.querySelector("#search").value;
+      const fromDate = document.querySelector("#fromDate").value;
+      const toDate = document.querySelector("#toDate").value;
+
+      const filterParams = new URLSearchParams();
+
+      const obj = {
+        q: searchValue,
+        fromDateTime: fromDate ? new Date(fromDate).toISOString() : null,
+        toDateTime: toDate ? new Date(toDate).toISOString() : null
+      }
+
+      for (key in obj)
+        if (obj[key])
+          filterParams.set(key, obj[key]);
+
+      const response = await axios.get(`/api/invoice/purchase?${filterParams}`);
+      // const data = x
+      const data = response.data
+      populateTable(data)
 
     }
 

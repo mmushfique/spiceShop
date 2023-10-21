@@ -37,7 +37,7 @@ public class InventoryServiceImpl implements InventoryService {
     public List<Inventory> getAllInventories(String search,Instant fromDateTime,Instant toDateTime,String product){
         String fromQry=" FROM Inventory inventory ";
 
-        if(toDateTime==null) toDateTime= Instant.now();
+        if(toDateTime==null) toDateTime= Instant.now().truncatedTo(java.time.temporal.ChronoUnit.DAYS);;
         if(fromDateTime==null) fromDateTime= toDateTime.minus(Duration.ofDays(6));
 
         if(product!=null && !product.isEmpty()) {

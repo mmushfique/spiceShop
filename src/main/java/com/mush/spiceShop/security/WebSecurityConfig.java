@@ -39,14 +39,13 @@ public class WebSecurityConfig {
 		http.csrf().disable().
 				authorizeRequests(authorizeRequests ->
 				authorizeRequests
-						.antMatchers("/public/**").permitAll()
 						.antMatchers("/assets/**").permitAll()// Allow access to public resources
 						.anyRequest().authenticated() // Require authentication for all other requests
 		)
 
 				.formLogin().loginPage("/login")
 				.and().formLogin().loginProcessingUrl("/login")
-				.and().formLogin().defaultSuccessUrl("/index.html").permitAll()
+				.and().formLogin().defaultSuccessUrl("/").permitAll()
 				.and().logout().logoutSuccessUrl("/login");
 		return http.build();
 	}

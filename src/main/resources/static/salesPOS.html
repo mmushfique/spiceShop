@@ -601,27 +601,29 @@
                     const productTableLists = document.querySelectorAll('.product-lists');
                     const transactions = [];
                     for (let i = 1; i < productTableLists.length; i++) {
-                        const table = productTableLists[i];
+                        const row = productTableLists[i];
                         const dried = false;
-                        if (table.querySelector('#driedPercentage').value > 95) { dried = true }
+                        if (row.querySelector('#driedPercentage').value > 95) { dried = true }
                         const record = {
-                            "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
-                            "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
-                            "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
-                            "price": parseFloat(table.querySelectorAll('li')[4].textContent),
+                            "pricePerUnit": parseFloat(row.querySelectorAll('li')[1].textContent),
+                            "qty": parseFloat(row.querySelectorAll('li')[2].textContent),
+                            "qtyAfterDropped": parseFloat(row.querySelectorAll('li')[3].textContent),
+                            "price": parseFloat(row.querySelectorAll('li')[4].textContent),
                             "dried": dried,
-                            "quality": table.querySelector('#quality').value,
-                            "dryPercent": parseFloat(table.querySelector('#driedPercentage').value),
+                            "quality": row.querySelector('#quality').value,
+                            "dryPercent": parseFloat(row.querySelector('#driedPercentage').value),
                             "invoice": {
                                 "id": invoiceId // Use the invoice ID obtained earlier
                             },
                             "product": {
-                                "id": parseFloat(table.querySelector('#id').value)
+                                "id": parseFloat(row.querySelector('#id').value),
+                                "name":row.querySelector('h4').textContent
                             },
                             createdAt: new Date().toISOString()
                         };
 
                         transactions.push(record);
+                        displayAndPrintBill(transactions);
                     }
 
                     axios.post('/api/transaction/sale', transactions)
@@ -639,6 +641,89 @@
                     modalPop('Error creating invoice:', error);
                 });
         });
+
+         ///////////////billllllllll///////////////////
+        // JavaScript to populate and display the bill
+        // Create an HTML table to display the bill
+        function createBillHTML(transactions) {
+            const total = document.querySelector('#total').textContent;
+            const buyer = document.querySelector('#buyer').value;
+            let billHTML = `
+            <caption style="text-align:center;">SPICE SHOP</caption>
+            <div style="display:flex;justify-content:space-between;width:100%">
+                <p>Buyer name: ${buyer}</p>
+                <p>Date : ${new Date().toISOString().split("T")[0]}</p> 
+                </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price per Unit</th>
+                        <th>Quantity</th>
+                        <th>Qty After Dropped</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+            for (const transaction of transactions) {
+                billHTML += `
+                <tr>
+                    <td>${transaction.product.name}</td>
+                    <td>${transaction.pricePerUnit}</td>
+                    <td>${transaction.qty}</td>
+                    <td>${transaction.qtyAfterDropped}</td>
+                    <td>${transaction.price}</td>
+                </tr>
+                `;
+                    }
+                
+
+                    billHTML += ` 
+
+                    </tbody>
+                </table>
+
+                <div style="border-bottom:1px double #000;padding-top:50px">
+                        <p style="text-align:right;width:100%">Total   ${total}</p>
+                </div>
+            `;
+
+            return billHTML;
+        }
+
+
+        // Function to display and print the bill
+        function displayAndPrintBill(transactions) {
+            const billHTML = createBillHTML(transactions);
+
+            // Create a new window to display the bill
+            const billWindow = window.open('', 'Bill', 'height=600,width=800');
+            billWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Invoice Bill</title>
+                    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+                </head>
+                <body>
+                    <div class="container">
+                        <h2 class="text-center">Invoice Bill</h2>
+                        ${billHTML}
+                    </div>
+
+                </body>
+                </html>
+            `);
+
+
+            // Allow some time for the bill content to load
+            setTimeout(() => {
+                billWindow.print();
+                billWindow.close();
+            }, 100);
+        }
 
 
         ///// END ///////////Send the records from table to server///////////////////////////
