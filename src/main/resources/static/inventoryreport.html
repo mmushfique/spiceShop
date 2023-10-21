@@ -302,11 +302,11 @@
                         <div class="form-group">
                           <label>Choose Product</label>
                           <select class="select" id="product">
-                           
+                           <option></option>
                           </select>
                         </div>
                       </div>
-
+<!-- 
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
                           <label>In/Out stock</label>
@@ -315,7 +315,7 @@
                            <option>Out stock</option>
                           </select>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
@@ -364,7 +364,7 @@
                     <th>Current weight</th>
                     <th>Current dried percent</th>
                     <th>Quality</th>
-                    <th>In stock/Sold</th>
+                    <!-- <th>In stock/Sold</th> -->
                     <th>Bought At</th>
                     <!-- <th>Last updated At</th> -->
                   </tr>
@@ -427,7 +427,7 @@
 
     function populateProductSelect(data){
       const products=data.map(item=>`<option>${item.product.name}</option>`)
-      document.querySelector("#product").innerHTML=products.join("")
+      document.querySelector("#product").innerHTML+=products.join("")
     }
 
     function populateTable(data) {
@@ -449,7 +449,7 @@
         newRow.querySelector('td:nth-child(3)').textContent = item.modifiedWeight;
         newRow.querySelector('td:nth-child(4)').textContent = item.modifiedDryPercent;
         newRow.querySelector('td:nth-child(5)').textContent = item.quality;
-        newRow.querySelector('td:nth-child(6)').textContent = item.transactionStatus === "BOUGHT" ? "In stock" : "Sold"
+        // newRow.querySelector('td:nth-child(6)').textContent = item.transactionStatus === "BOUGHT" ? "In stock" : "Sold"
         newRow.querySelector('td:nth-child(7)').textContent = item.createdAt;
         // newRow.querySelector('td:nth-child(8)').textContent = item.lastModifiedAt;
 
@@ -470,7 +470,7 @@
     async function filterFunction () {
       const searchValue=document.querySelector("#search").value;
       const product=document.querySelector("#product").value;
-      const stock=document.querySelector("#stock").value;
+      // const stock=document.querySelector("#stock").value;
       const fromDate=document.querySelector("#fromDate").value;
       const toDate=document.querySelector("#toDate").value;
 
@@ -479,7 +479,7 @@
       const obj={
         q:searchValue,
         product,
-        stock,
+        // stock,
         fromDateTime:fromDate? new Date(fromDate).toISOString():null,
         toDateTime:toDate?new  Date(toDate).toISOString():null
       }

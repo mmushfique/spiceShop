@@ -41,11 +41,11 @@ public class InventoryServiceImpl implements InventoryService {
         if(fromDateTime==null) fromDateTime= toDateTime.minus(Duration.ofDays(6));
 
         if(product!=null && !product.isEmpty()) {
-            fromQry += " LEFT JOIN inventory.product";
+            fromQry += " LEFT JOIN inventory.product WHERE inventory.transactionStatus='BOUGHT' ";
         }
 
         if(search!=null && !search.isEmpty()){
-            String searchQry=" inventory.quality LIKE '%"+search+"%' ";
+            String searchQry=" inventory.quality LIKE '%"+search+"%' OR inventory.product.name LIKE '%"+search+"%' ";
             fromQry= BuildQuery.checkAndOr(fromQry,searchQry);
         }
 
