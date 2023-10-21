@@ -153,7 +153,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="profile.html">My Profile</a>
                 <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                <a class="dropdown-item" href="signin.html">Logout</a>
+                <a class="dropdown-item" href="../templates/login.html">Logout</a>
             </div>
         </div>
 
@@ -301,9 +301,18 @@
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
                           <label>Choose Product</label>
-                          <select class="select">
-                            <option>Macbook pro</option>
-                            <option>Orange</option>
+                          <select class="select" id="product">
+                           
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg col-sm-6 col-12">
+                        <div class="form-group">
+                          <label>In/Out stock</label>
+                          <select class="select" id="stock">
+                           <option>In stock</option>
+                           <option>Out stock</option>
                           </select>
                         </div>
                       </div>
@@ -311,22 +320,22 @@
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
                           <label>Date From</label>
-                         <input type="date" name="dateFrom" class="form-control form-control-date">
+                         <input type="date" id="fromDate" class="form-control form-control-date">
                         </div>
                       </div>
 
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
                           <label>Date To</label>
-                         <input type="date" name="dateTo" class="form-control form-control-date">
+                         <input type="date" id="toDate" class="form-control form-control-date">
                         </div>
                       </div>
                      
                      
                       <div class="col-lg-1 col-sm-6 col-12">
                         <div class="form-group">
-                          <a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg"
-                              alt="img"></a>
+                          <button id="filter" class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg"
+                              alt="img"></button>
                         </div>
                       </div>
                     </div>
@@ -404,6 +413,7 @@
           if (response.status === 200 && response.data) {
             var data = response.data; // Assuming your data is an array of objects
             populateTable(data);
+            populateProductSelect(data);
           } else {
             console.error('Failed to fetch data');
           }
@@ -414,6 +424,11 @@
     }
     // Fetch data using Axios when the page is loaded
     window.addEventListener('load', loadAllData);
+
+    function populateProductSelect(data){
+      const products=data.map(item=>`<option>${item.product.name}</option>`)
+      document.querySelector("#product").innerHTML=products.join("")
+    }
 
     function populateTable(data) {
       // Get the template row
@@ -445,121 +460,40 @@
 
     }
 
-    const x = [{
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 7647,
-      "modifiedDryPercent": 78,
-      "quality": "poor",
-      "transactionStatus": "BOUGHT",
-      "createdAt": "2/15/2009",
-      "lastModifiedAt": "3/11/2014"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 9903,
-      "modifiedDryPercent": 43,
-      "quality": "excellent",
-      "transactionStatus": "SOLD",
-      "createdAt": "6/27/2012",
-      "lastModifiedAt": "11/4/2006"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 2128,
-      "modifiedDryPercent": 57,
-      "quality": "excellent",
-      "transactionStatus": "SOLD",
-      "createdAt": "10/21/2022",
-      "lastModifiedAt": "1/6/2014"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 1152,
-      "modifiedDryPercent": 11,
-      "quality": "good",
-      "transactionStatus": "SOLD",
-      "createdAt": "10/12/2003",
-      "lastModifiedAt": "9/13/2021"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 8419,
-      "modifiedDryPercent": 32,
-      "quality": "good",
-      "transactionStatus": "BOUGHT",
-      "createdAt": "2/26/2019",
-      "lastModifiedAt": "5/20/2005"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 9364,
-      "modifiedDryPercent": 85,
-      "quality": "poor",
-      "transactionStatus": "BOUGHT",
-      "createdAt": "1/11/2007",
-      "lastModifiedAt": "2/23/2004"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 9528,
-      "modifiedDryPercent": 69,
-      "quality": "good",
-      "transactionStatus": "BOUGHT",
-      "createdAt": "5/8/2018",
-      "lastModifiedAt": "2/25/2007"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 8147,
-      "modifiedDryPercent": 51,
-      "quality": "good",
-      "transactionStatus": "SOLD",
-      "createdAt": "1/24/2006",
-      "lastModifiedAt": "8/15/2013"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 6902,
-      "modifiedDryPercent": 47,
-      "quality": "poor",
-      "transactionStatus": "SOLD",
-      "createdAt": "7/10/2010",
-      "lastModifiedAt": "9/5/2007"
-    }, {
-      "product": {
-        "name": "fasafda"
-      },
-      "modifiedWeight": 4160,
-      "modifiedDryPercent": 60,
-      "quality": "good",
-      "transactionStatus": "BOUGHT",
-      "createdAt": "1/29/2021",
-      "lastModifiedAt": "4/6/2017"
-    }]
 
     const search = document.querySelector("#search");
-    search.addEventListener('input', async (event) => {
-      const value = event.target.value
-      if (value) {
+    const filter = document.querySelector("#filter");
 
-        // const response = await axios.get(`api/inventory?q=${value}`);
-        const data = x
-        // const data = response.data
-        populateTable(data)
-      } else {
-        loadAllData()
+    search.addEventListener('input',filterFunction)
+    filter.addEventListener('click',filterFunction)
+
+    async function filterFunction () {
+      const searchValue=document.querySelector("#search").value;
+      const product=document.querySelector("#product").value;
+      const stock=document.querySelector("#stock").value;
+      const fromDate=document.querySelector("#fromDate").value;
+      const toDate=document.querySelector("#toDate").value;
+
+      const filterParams=new URLSearchParams();
+
+      const obj={
+        q:searchValue,
+        product,
+        stock,
+        fromDateTime:fromDate? new Date(fromDate).toISOString():null,
+        toDateTime:toDate?new  Date(toDate).toISOString():null
       }
-    })
+
+      for(key in obj)    
+        if(obj[key])
+          filterParams.set(key,obj[key]);
+        
+        const response = await axios.get(`api/inventory?${filterParams}`);
+        // const data = x
+        const data = response.data
+        populateTable(data)
+ 
+    }
   </script>
   <script src="assets/js/axios.js"></script>
   <script src="assets/js/jquery-3.6.0.min.js"></script>

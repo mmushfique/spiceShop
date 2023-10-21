@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PersonRepository extends JpaRepository<Person,Long> {
     List<Person> findAllByType(String buyer);
+
+    int countAllPersonByType(String type);
 }

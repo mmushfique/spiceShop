@@ -41,7 +41,7 @@
         <!-- ----------------------------------------------------------------------------------------------------------- -->
         <div class="header" style="background:rgba(234, 84, 85, .12)">
             <div class=" header-left border-0 ">
-                <a href=" index.html" class="logo">
+                <a href="index.html" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
                 <a href="index.html" class="logo-small">
@@ -138,8 +138,8 @@
                                     </path>
                                 </svg>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="/logout"><img
-                                    src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                            <a class="dropdown-item logout pb-0" href="/logout"><img src="assets/img/icons/log-out.svg"
+                                    class="me-2" alt="img">Logout</a>
                         </div>
                     </div>
                 </li>
@@ -152,7 +152,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -350,7 +350,8 @@
                                 </div>
                                 <div class="form-group" id="percent">
                                     <label>Dried percentage</label>
-                                    <input type="number" step=".01" id="driedPercentage-m" required oninput="validateInput(this)">
+                                    <input type="number" step=".01" id="driedPercentage-m" required
+                                        oninput="validateInput(this)">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -362,8 +363,10 @@
                                     <option>Bad</option>
                                 </select>
                             </div>
-                            <div id="error-message" style="color: red; display: none;">Please fill in all required fields.</div>
-                            <div id="error-messageMin" style="color: red; display: none;">Please fill percentage between 1 and 100 </div>
+                            <div id="error-message" style="color: red; display: none;">Please fill in all required
+                                fields.</div>
+                            <div id="error-messageMin" style="color: red; display: none;">Please fill percentage between
+                                1 and 100 </div>
                             <input type="hidden" id="productIdInput">
                             <input type="hidden" id="productNameInput">
                             <input type="hidden" id="productImageUrlInput">
@@ -461,15 +464,15 @@
                     const productNameInput = document.getElementById("productNameInput");
                     const productImageUrlInput = document.getElementById("productImageUrlInput");
                     const modalTitle = document.getElementById("productTitle");
-                    const categorySelect=document.getElementById("percent");
-            
-                    const category=img.querySelectorAll('#productDet h4')[1].textContent;
-                    if(category==="DRY"){
-                        categorySelect.style.display="none"
-                        categorySelect.querySelector("input").value=100
-                    }else{
-                        categorySelect.style.display="block"
-                        categorySelect.querySelector("input").value=""
+                    const categorySelect = document.getElementById("percent");
+
+                    const category = img.querySelectorAll('#productDet h4')[1].textContent;
+                    if (category === "DRY") {
+                        categorySelect.style.display = "none"
+                        categorySelect.querySelector("input").value = 100
+                    } else {
+                        categorySelect.style.display = "block"
+                        categorySelect.querySelector("input").value = ""
                     }
                     const title = `${img.querySelectorAll('#productDet h4')[0].textContent} ${img.querySelectorAll('#productDet h4')[1].textContent}`;
 
@@ -606,37 +609,39 @@
                     const invoiceId = invoiceResponse.data.id;
                     const productTableLists = document.querySelectorAll('.product-lists');
                     const transactions = [];
-                    
-                    for (let i = 1; i < productTableLists.length; i++) {
-                        const table = productTableLists[i];
-                        let dried = false;
-                        
 
-                        if (table.querySelector('#driedPercentage').value > 95) { dried = true }
-                        
+                    for (let i = 1; i < productTableLists.length; i++) {
+                        const row = productTableLists[i];
+                        let dried = false;
+
+
+                        if (row.querySelector('#driedPercentage').value > 95) { dried = true }
+
                         const record = {
-                            "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
-                            "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
-                            "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
-                            "price": parseFloat(table.querySelectorAll('li')[4].textContent),
+                            "pricePerUnit": parseFloat(row.querySelectorAll('li')[1].textContent),
+                            "qty": parseFloat(row.querySelectorAll('li')[2].textContent),
+                            "qtyAfterDropped": parseFloat(row.querySelectorAll('li')[3].textContent),
+                            "price": parseFloat(row.querySelectorAll('li')[4].textContent),
                             "dried": dried,
-                            "quality": table.querySelector('#quality').value,
-                            "dryPercent": parseFloat(table.querySelector('#driedPercentage').value),
+                            "quality": row.querySelector('#quality').value,
+                            "dryPercent": parseFloat(row.querySelector('#driedPercentage').value),
                             "invoice": {
                                 "id": invoiceId // Use the invoice ID obtained earlier
                             },
                             "product": {
-                                "id": parseFloat(table.querySelector('#id').value)
+                                "id": parseFloat(row.querySelector('#id').value),
+                                "name":row.querySelector('h4').textContent
                             },
                             createdAt: new Date().toISOString()
                         };
 
                         transactions.push(record);
+                        displayAndPrintBill(transactions);
                     }
 
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
-                            modalPop('Transaction successful');
+                            // modalPop('Transaction successful');
                         })
                         .catch(error => {
                             modalPop('Error sending transaction data:', error);
@@ -650,6 +655,90 @@
                     modalPop('Error creating invoice:', error);
                 });
         });
+
+
+
+        ///////////////billllllllll///////////////////
+        // JavaScript to populate and display the bill
+        // Create an HTML table to display the bill
+        function createBillHTML(transactions) {
+            const total = document.querySelector('#total').textContent;
+            const supplier = document.querySelector('#supplier').value;
+            let billHTML = `
+            <caption style="text-align:center;">SPICE SHOP</caption>
+            <div style="display:flex;justify-content:space-between;width:100%">
+                <p>Supplier name: ${supplier}</p>
+                <p>Date : ${new Date().toISOString().split("T")[0]}</p> 
+                </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price per Unit</th>
+                        <th>Quantity</th>
+                        <th>Qty After Dropped</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+            for (const transaction of transactions) {
+                billHTML += `
+                <tr>
+                    <td>${transaction.product.name}</td>
+                    <td>${transaction.pricePerUnit}</td>
+                    <td>${transaction.qty}</td>
+                    <td>${transaction.qtyAfterDropped}</td>
+                    <td>${transaction.price}</td>
+                </tr>
+                `;
+                    }
+                
+
+                    billHTML += ` 
+
+                    </tbody>
+                </table>
+
+                <div style="border-bottom:1px double #000;padding-top:50px">
+                        <p style="text-align:right;width:100%">Total   ${total}</p>
+                </div>
+            `;
+
+            return billHTML;
+        }
+
+        // Function to display and print the bill
+        function displayAndPrintBill(transactions) {
+            const billHTML = createBillHTML(transactions);
+
+            // Create a new window to display the bill
+            const billWindow = window.open('', 'Bill', 'height=600,width=800');
+            billWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Invoice Bill</title>
+                    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+                </head>
+                <body>
+                    <div class="container">
+                        <h2 class="text-center">Invoice Bill</h2>
+                        ${billHTML}
+                    </div>
+
+                </body>
+                </html>
+            `);
+
+
+            // Allow some time for the bill content to load
+            setTimeout(() => {
+                billWindow.print();
+                billWindow.close();
+            }, 100);
+        }
 
 
         ///// END ///////////Send the records from table to server///////////////////////////
@@ -702,11 +791,11 @@
 
             if (input.value < min) {
                 document.getElementById("error-messageMin").style.display = "block";
-                return false; 
+                return false;
             } else if (input.value > max) {
                 document.getElementById("error-messageMin").style.display = "block";
-                return false; 
-            }else{
+                return false;
+            } else {
                 document.getElementById("error-messageMin").style.display = "none"
             }
         }

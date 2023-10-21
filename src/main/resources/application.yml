@@ -5,6 +5,21 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update # Or your preferred strategy
-    show-sql: true
+
+  resources:
+    static-locations=file:/productImg:
+logging:
+  level:
+    org:
+      springframework:
+        security=DEBUG:
+
+file:
+  upload-dir: classpath:/static/assets/img/product/
+
+server:
+  port: 8081
+

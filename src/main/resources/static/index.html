@@ -38,7 +38,7 @@
 
         <div class="header">
 
-            <div class="header-left active" >
+            <div class="header-left active">
                 <a href="index.html" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
@@ -130,11 +130,10 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="/logout"><img
-                                    src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                            <a class="dropdown-item logout pb-0" href="/logout"><img src="assets/img/icons/log-out.svg"
+                                    class="me-2" alt="img">Logout</a>
                         </div>
                     </div>
                 </li>
@@ -147,7 +146,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -161,11 +160,12 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li>
-                            <a href="index.html" class="active"><img src="assets/img/icons/dashboard.svg" alt="img"><span>
+                            <a href="index.html" class="active"><img src="assets/img/icons/dashboard.svg"
+                                    alt="img"><span>
                                     Dashboard</span> </a>
                         </li>
                         <li style="background:rgba(234, 84, 85, .12)">
-                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
+                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
                                     POS</span> </a>
                         </li>
                         <li style="background: rgba(40, 199, 111, .12);">
@@ -255,7 +255,8 @@
                                 <span><img src="assets/img/icons/dash1.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>Rs<span class="counters" data-count="307144.00">$307,144.00</span></h5>
+                                <h5>Rs <span class="counters"  id="purchases">$307,144.00</span>
+                                </h5>
                                 <h6>Total Purchases</h6>
                             </div>
                         </div>
@@ -266,7 +267,7 @@
                                 <span><img src="assets/img/icons/dash2.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>Rs<span class="counters" data-count="4385.00">$4,385.00</span></h5>
+                                <h5>Rs <span class="counters" id="sales">$4,385.00</span></h5>
                                 <h6>Total Sales</h6>
                             </div>
                         </div>
@@ -277,7 +278,7 @@
                                 <span><img src="assets/img/icons/dash3.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>Rs<span class="counters" data-count="385656.50">0</span></h5>
+                                <h5>Rs <span class="counters" data-count="0">0</span></h5>
                                 <h6>Total Purchase Due</h6>
                             </div>
                         </div>
@@ -288,7 +289,7 @@
                                 <span><img src="assets/img/icons/dash4.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>Rs<span class="counters" data-count="40000.00">0</span></h5>
+                                <h5>Rs <span class="counters" data-count="0">0</span></h5>
                                 <h6>Total Sale Due</h6>
                             </div>
                         </div>
@@ -296,7 +297,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count">
                             <div class="dash-counts">
-                                <h4>100</h4>
+                                <h4 id="buyers">100</h4>
                                 <h5>buyers</h5>
                             </div>
                             <div class="dash-imgs">
@@ -307,7 +308,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das1">
                             <div class="dash-counts">
-                                <h4>100</h4>
+                                <h4 id="suppliers">100</h4>
                                 <h5>Suppliers</h5>
                             </div>
                             <div class="dash-imgs">
@@ -318,7 +319,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>100</h4>
+                                <h4 id="purchaseCount">100</h4>
                                 <h5>Purchase Invoice</h5>
                             </div>
                             <div class="dash-imgs">
@@ -329,7 +330,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das3">
                             <div class="dash-counts">
-                                <h4>105</h4>
+                                <h4 id="salesCount">105</h4>
                                 <h5>Sales Invoice</h5>
                             </div>
                             <div class="dash-imgs">
@@ -417,7 +418,7 @@
                                                 </td>
                                                 <td>$891.2</td>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -501,8 +502,31 @@
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('load', function () {
+            const purchases = document.querySelector("#purchases");
+            const sales = document.querySelector("#sales");
+            const buyers = document.querySelector("#buyers");
+            const suppliers = document.querySelector("#suppliers");
+            const purchaseCount = document.querySelector("#purchaseCount");
+            const salesCount = document.querySelector("#salesCount");
 
+            axios.get('/api/dashboard/totalCounts')
+                .then(function (response) {
+                    suppliers.textContent = response.data.supplierCount
+                    buyers.textContent = response.data.buyerCount;
+                    purchaseCount.textContent = response.data.purchasedInvoice;
+                    salesCount.textContent = response.data.salesInvoice;
+                    purchases.textContent = Math.ciel(response.data.totalPurchasedAmount);
+                    sales.textContent = Math.ciel(response.data.totalSalesAmount);
+                })
+                .catch(function (error) {
+                    console.error('An error occurred while fetching data:', error);
+                });
+        });
 
+    </script>
+    <script src="assets/js/axios.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>
