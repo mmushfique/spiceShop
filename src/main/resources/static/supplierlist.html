@@ -413,7 +413,7 @@
                 var newRow = templateRow.cloneNode(true);
 
                 // Populate the cloned row with data
-                newRow.querySelectorAll('td:nth-child(2)').textContent = item.name;
+                newRow.querySelector('td:nth-child(2)').textContent = item.name;
                 newRow.querySelector('td:nth-child(3)').textContent = item.phone;
                 newRow.querySelector('td:nth-child(4)').textContent = item.address;
                 newRow.querySelector('td:nth-child(5)').textContent = item.description;

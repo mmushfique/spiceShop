@@ -255,7 +255,7 @@
                                 <span><img src="assets/img/icons/dash1.svg" alt="img"></span>
                             </div>
                             <div class="dash-widgetcontent">
-                                <h5>Rs <span class="counters"  id="purchases">$307,144.00</span>
+                                <h5>Rs <span class="counters" id="purchases">$307,144.00</span>
                                 </h5>
                                 <h6>Total Purchases</h6>
                             </div>
@@ -344,32 +344,19 @@
                     <div class="col-lg-7 col-sm-12 col-12 d-flex">
                         <div class="card flex-fill">
                             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                                <h5 class="card-title mb-0">Purchase & Sales</h5>
+                                <h5 class="card-title mb-0">Purchase & Sales average unit price on last 30 days</h5>
                                 <div class="graph-sets">
                                     <ul>
                                         <li>
-                                            <span>Sales</span>
+                                            <span>Purchase</span>
                                         </li>
                                         <li>
-                                            <span>Purchase</span>
+                                            <span>Sales</span>
                                         </li>
                                     </ul>
                                     <div class="dropdown">
-                                        <button class="btn btn-white btn-sm dropdown-toggle" type="button"
-                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            2022 <img src="assets/img/icons/dropdown.svg" alt="img" class="ms-2">
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <a href="javascript:void(0);" class="dropdown-item">2022</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);" class="dropdown-item">2021</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);" class="dropdown-item">2020</a>
-                                            </li>
-                                        </ul>
+                                        <select id="productNames">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -428,12 +415,13 @@
                 </div>
                 <div class="card mb-0">
                     <div class="card-body">
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         window.addEventListener('load', function () {
             const purchases = document.querySelector("#purchases");
@@ -457,7 +445,116 @@
                 });
         });
 
+
+        const productNames = document.querySelector("#productNames");
+        productNames.addEventListener('change', async function (e) {
+            // const x=await fetchGraphData(e.target.selectedOptions[0].value)
+            await displayGraph(e.target.selectedOptions[0].value)
+            console.log("selectonchange event");
+        })
+
+
+        // Fetch data using Axios when the page is loaded
+        window.addEventListener('load', function () {
+            const productNames = document.querySelector("#productNames");
+
+            axios.get('/api/product')
+                .then(function (response) {
+                    const options = response.data.map(item => `<option value="${item.id}">${item.name} ${item.category}</option>`);
+                    productNames.innerHTML = options;
+                    displayGraph(response.data[0].id)
+                })
+                .catch(function (error) {
+                    console.error('An error occurred while fetching data:', error);
+                });
+        });
+
+
+        //ftch graph
+        const fetchGraphData = async (productId) => {
+            const response = await axios.get(`/api/dashboard/transaction-by-date?productId=${productId}`)
+            return response.data;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        'use strict';
+
+        const displayGraph = async (productId) => {
+            // Replace this with your actual JSON data for average purchase and sale prices for each date
+            // var jsonData = [
+            //     { TransactionDate: '2023-10-01', AvgPurchasePrice: 100, AvgSalesPrice: null },
+            //     { TransactionDate: '2023-10-02', AvgPurchasePrice: 120, AvgSalesPrice: 160 },
+            //     // Add more data here
+            // ];
+         
+            console.log("jsondata");
+
+            const jsonData = await fetchGraphData(productId);
+            console.log(jsonData);
+            // const parsedData = jsonData.reduce((data, record) => {
+            //     const formatedRecord={};
+            //     formatedRecord["TransactionDate"]=record[0];
+            //     formatedRecord["AvgPurchasePrice"]=record[1];
+            //     formatedRecord["AvgSalesPrice"]=record[2];
+            //     data.push(formatedRecord);
+            //     return data;
+            // }, [])
+            // Extract the data for the chart
+            var dates = jsonData.map(function (item) {
+                return item.transactionDate;
+            });
+
+            var avgPurchasePrices = jsonData.map(function (item) {
+                return item.avgPurchasePrice;
+            });
+
+            var avgSalesPrices = jsonData.map(function (item) {
+                return item.avgSalesPrice;
+            });
+            const salesCount = document.querySelector("#salesCount");
+            document.querySelector("#sales_charts").innerHTML="";
+            // Replace the chart configuration with the actual data
+            if ($('#sales_charts').length > 0) {
+                var options = {
+                    series: [
+                        { name: 'Avg Sales Price', data: avgSalesPrices },
+                        { name: 'Avg Purchase Price', data: avgPurchasePrices }
+
+                    ],
+                    colors: ['#28C76F', '#EA5455'],
+                    chart: {
+                        type: 'bar',
+                        height: 300,
+                        stacked: true,
+                        zoom: { enabled: true }
+                    },
+                    responsive: [
+                        {
+                            breakpoint: 280,
+                            options: {
+                                legend: { position: 'bottom', offsetY: 0 }
+                            }
+                        }
+                    ],
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '20%',
+                            endingShape: 'rounded'
+                        },
+                    },
+                    xaxis: { categories: dates },
+                    legend: { position: 'right', offsetY: 40 },
+                    fill: { opacity: 1 }
+                };
+
+                var chart = new ApexCharts(document.querySelector("#sales_charts"), options);
+                chart.render();
+            }
+        }
+
     </script>
+
     <script src="assets/js/axios.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 

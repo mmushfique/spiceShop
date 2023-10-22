@@ -636,11 +636,12 @@
                         };
 
                         transactions.push(record);
-                        displayAndPrintBill(transactions);
+                        
                     }
 
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
+                            displayAndPrintBill(transactions);
                             // modalPop('Transaction successful');
                         })
                         .catch(error => {

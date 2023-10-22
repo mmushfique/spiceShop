@@ -446,8 +446,8 @@
         // Populate the cloned row with data
         newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[0].querySelector('img').src=item.product.imageUrl
         newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[1].innerHTML = item.product?.name+"<br>"+item.product?.category;
-        newRow.querySelector('td:nth-child(3)').textContent = item.modifiedWeight;
-        newRow.querySelector('td:nth-child(4)').textContent = item.modifiedDryPercent;
+        newRow.querySelector('td:nth-child(3)').textContent = Math.ciel(item.modifiedWeight);
+        newRow.querySelector('td:nth-child(4)').textContent = Math.ciel(item.modifiedDryPercent);
         newRow.querySelector('td:nth-child(5)').textContent = item.quality;
         // newRow.querySelector('td:nth-child(6)').textContent = item.transactionStatus === "BOUGHT" ? "In stock" : "Sold"
         newRow.querySelector('td:nth-child(7)').textContent = item.createdAt;

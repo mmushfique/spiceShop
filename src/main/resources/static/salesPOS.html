@@ -623,12 +623,13 @@
                         };
 
                         transactions.push(record);
-                        displayAndPrintBill(transactions);
+                        
                     }
 
                     axios.post('/api/transaction/sale', transactions)
                         .then(response => {
-                            modalPop('Transaction successful');
+                            displayAndPrintBill(transactions);
+                            // modalPop('Transaction successful');
                         })
                         .catch(error => {
                             modalPop('Error sending transaction data:', error);

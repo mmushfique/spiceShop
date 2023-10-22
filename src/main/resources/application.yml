@@ -20,6 +20,4 @@ logging:
 file:
   upload-dir: classpath:/static/assets/img/product/
 
-server:
-  port: 8081
 
