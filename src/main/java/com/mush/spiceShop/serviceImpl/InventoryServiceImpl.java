@@ -6,10 +6,15 @@ import com.mush.spiceShop.domain.Stock;
 import com.mush.spiceShop.repository.InventoryRepository;
 import com.mush.spiceShop.service.InventoryService;
 import com.mush.spiceShop.service.StockService;
+import com.mush.spiceShop.utils.BuildQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +26,40 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private StockService stockService;
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public Inventory save(Inventory inventory) {
         return inventoryRepository.save(inventory);
     }
     @Override
-    public List<Inventory> getAllInventories(){
-        return inventoryRepository.findAll();
+    public List<Inventory> getAllInventories(String search,Instant fromDateTime,Instant toDateTime,String product){
+        String fromQry=" FROM Inventory inventory ";
+
+        if(toDateTime==null) toDateTime= Instant.now().truncatedTo(java.time.temporal.ChronoUnit.DAYS);;
+        if(fromDateTime==null) fromDateTime= toDateTime.minus(Duration.ofDays(6));
+
+        if(product!=null && !product.isEmpty()) {
+            fromQry += " LEFT JOIN inventory.product WHERE inventory.transactionStatus='BOUGHT' ";
+        }
+
+        if(search!=null && !search.isEmpty()){
+            String searchQry=" inventory.quality LIKE '%"+search+"%' OR inventory.product.name LIKE '%"+search+"%' ";
+            fromQry= BuildQuery.checkAndOr(fromQry,searchQry);
+        }
+
+        fromQry=BuildQuery.checkBetween(fromDateTime,toDateTime,fromQry," inventory.createdAt ");
+
+        if(product!=null && !product.isEmpty()) {
+            fromQry = BuildQuery.checkAndOr(fromQry,"inventory.product.name='"+product+"'");
+        }
+
+        String qry= "SELECT inventory " + fromQry;
+        System.out.println(qry);
+        Query query = entityManager.createQuery(qry);
+        List<Inventory> inventoryList=query.getResultList();
+        return inventoryList;
     }
     @Override
     public void deleteInventoryById(Long inventoryId) {

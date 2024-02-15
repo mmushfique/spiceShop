@@ -132,10 +132,9 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My
                                 Profile</a>
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="signin.html"><img
+                            <a class="dropdown-item logout pb-0" href="/logout"><img
                                     src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
                         </div>
                     </div>
@@ -149,7 +148,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -167,7 +166,7 @@
                                     Dashboard</span> </a>
                         </li>
                         <li style="background:rgba(234, 84, 85, .12)">
-                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
+                            <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
                                     POS</span> </a>
                         </li>
                         <li style="background: rgba(40, 199, 111, .12);">
@@ -211,7 +210,7 @@
                                     Report</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="inventoryreport.html">Inventory Report</a></li>
-                                <li><a href="stockreport.html">Sales Report</a></li>
+                                <li><a href="stockreport.html">Stock Report</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -284,20 +283,20 @@
                                             <table style="width: 100%;line-height: inherit;text-align: left;">
                                                 <tbody>
                                                     <tr>
-                                                        <td
+                                                        <td id="person"
                                                             style="padding:5px;vertical-align:top;text-align:left;padding-bottom:20px">
                                                             <font style="vertical-align: inherit;margin-bottom:25px;">
-                                                                <font
+                                                                <font 
                                                                     style="vertical-align: inherit;font-size:14px;color:#7367F0;font-weight:600;line-height: 35px; ">
                                                                     buyer Info</font>
                                                             </font><br>
                                                             <font style="vertical-align: inherit;">
-                                                                <font
+                                                                <font id="name"
                                                                     style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">
                                                                     walk-in-buyer</font>
                                                             </font><br>
                                                             <font style="vertical-align: inherit;">
-                                                                <font
+                                                                <font  id="address"
                                                                     style="vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;">
                                                                     N45 , Dhaka</font>
                                                             </font><br>
@@ -367,7 +366,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+
                                     </tbody>
                                 </table>
                             </div>
@@ -385,19 +384,19 @@
         <tr class="details" style="border-bottom:1px solid #E9ECEF ;">
             <td style="padding: 10px;vertical-align: top; display: flex;align-items: center;">
                 <img src="assets/img/product/product8.jpg" alt="img" class="me-2" style="width:40px;height:40px;">
-               
+
             </td>
             <td style="padding: 10px;vertical-align: top; ">
-         
+
             </td>
             <td style="padding: 10px;vertical-align: top; ">
-              
+
             </td>
             <td style="padding: 10px;vertical-align: top; ">
-               
+
             </td>
             <td style="padding: 10px;vertical-align: top; ">
-          
+
             </td>
         </tr>
     </template>
@@ -433,7 +432,8 @@
         });
 
         function populateTable(data) {
-            document.querySelector('#invoiceRef').innerHTML = data[0].invoice.id;
+            document.querySelector('#person').querySelector('#name').innerHTML =data[0].invoice.person!=null?data[0].invoice.person.name:null;
+            document.querySelector('#person').querySelector('#address').innerHTML = data[0].invoice.person!=null?data[0].invoice.person.address:null;
             document.querySelector('#editInvoice').href = `edit-purchase.html?id=${data[0].invoice.id}`;
 
             // Get the template row
@@ -453,7 +453,7 @@
                 newRow.querySelector('td:nth-child(2)').textContent = item.qty;
                 newRow.querySelector('td:nth-child(3)').textContent = item.qtyAfterDropped;//supplier name
                 newRow.querySelector('td:nth-child(4)').textContent = item.pricePerUnit;
-                newRow.querySelector('td:nth-child(5)').textContent = item.invoice.total;
+                newRow.querySelector('td:nth-child(5)').textContent = item.price;
                 dataArray += newRow.outerHTML;
             });
 

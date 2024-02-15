@@ -42,118 +42,120 @@
 
     <div class="header">
 
-        <div class="header-left active">
-            <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="">
-            </a>
-            <a href="index.html" class="logo-small">
-                <img src="assets/img/logo.png" alt="">
-            </a>
-            <a id="toggle_btn" href="javascript:void(0);">
-            </a>
-        </div>
-
-        <a id="mobile_btn" class="mobile_btn" href="#sidebar">
-            <span class="bar-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
+      <div class="header-left active">
+        <a href="index.html" class="logo">
+          <img src="assets/img/logo.png" alt="">
         </a>
+        <a href="index.html" class="logo-small">
+          <img src="assets/img/logo.png" alt="">
+        </a>
+        <a id="toggle_btn" href="javascript:void(0);">
+        </a>
+      </div>
 
-        <ul class="nav user-menu">
+      <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+        <span class="bar-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
 
-            <li class="nav-item">
-                <div class="top-nav-search">
-                    <a href="javascript:void(0);" class="responsive-search">
-                        <i class="fa fa-search"></i>
-                    </a>
-                    <form action="#">
-                        <div class="searchinputs">
-                            <input type="text" placeholder="Search Here ...">
-                            <div class="search-addon">
-                                <span><img src="assets/img/icons/closes.svg" alt="img"></span>
-                            </div>
-                        </div>
-                        <a class="btn" id="searchdiv"><img src="assets/img/icons/search.svg" alt="img"></a>
-                    </form>
+      <ul class="nav user-menu">
+
+        <li class="nav-item">
+          <div class="top-nav-search">
+            <a href="javascript:void(0);" class="responsive-search">
+              <i class="fa fa-search"></i>
+            </a>
+            <form action="#">
+              <div class="searchinputs">
+                <input type="text" placeholder="Search Here ...">
+                <div class="search-addon">
+                  <span><img src="assets/img/icons/closes.svg" alt="img"></span>
                 </div>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
-                        class="badge rounded-pill">4</span>
-                </a>
-                <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
-                        <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                    </div>
-                    <div class="noti-content">
-                        <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="activities.html">
-                                    <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="assets/img/profiles/avatar-13.jpg">
-                                        </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
-                                                added new task <span class="noti-title">Private chat module</span>
-                                            </p>
-                                            <p class="noti-time"><span class="notification-time">2 days ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="activities.html">View all Notifications</a>
-                    </div>
+                 <div class="search-input">
+                  <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>                 
                 </div>
-            </li>
+              </div>
+              <a class="btn" id="searchdiv"><img src="assets/img/icons/search.svg" alt="img"></a>
+            </form>
+          </div>
+        </li>
 
-            <li class="nav-item dropdown has-arrow main-drop">
-                <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                    <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
-                        <span class="status online"></span></span>
-                </a>
-                <div class="dropdown-menu menu-drop-user">
-                    <div class="profilename">
-                        <div class="profileset">
-                            <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
-                                <span class="status online"></span></span>
-                            <div class="profilesets">
-                                <h6>Mushfique</h6>
-                                <h5>Admin</h5>
-                            </div>
-                        </div>
-                        <hr class="m-0">
-                        <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
-                            Profile</a>
-                        <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
-                                data-feather="settings"></i>Settings</a>
-                        <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img
-                                src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
-
-        <div class="dropdown mobile-user-menu">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="profile.html">My Profile</a>
-                <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                <a class="dropdown-item" href="signin.html">Logout</a>
+        <li class="nav-item dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+            <img src="assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill">4</span>
+          </a>
+          <div class="dropdown-menu notifications">
+            <div class="topnav-dropdown-header">
+              <span class="notification-title">Notifications</span>
+              <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
             </div>
+            <div class="noti-content">
+              <ul class="notification-list">
+                <li class="notification-message">
+                  <a href="activities.html">
+                    <div class="media d-flex">
+                      <span class="avatar flex-shrink-0">
+                        <img alt="" src="assets/img/profiles/avatar-13.jpg">
+                      </span>
+                      <div class="media-body flex-grow-1">
+                        <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                          added new task <span class="noti-title">Private chat module</span>
+                        </p>
+                        <p class="noti-time"><span class="notification-time">2 days ago</span>
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="topnav-dropdown-footer">
+              <a href="activities.html">View all Notifications</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown has-arrow main-drop">
+          <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+            <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
+              <span class="status online"></span></span>
+          </a>
+          <div class="dropdown-menu menu-drop-user">
+            <div class="profilename">
+              <div class="profileset">
+                <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
+                  <span class="status online"></span></span>
+                <div class="profilesets">
+                  <h6>Mushfique</h6>
+                  <h5>Admin</h5>
+                </div>
+              </div>
+              <hr class="m-0">
+              <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+                Profile</a>
+              <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                  data-feather="settings"></i>Settings</a>
+              <hr class="m-0">
+              <a class="dropdown-item logout pb-0" href="/logout"><img src="assets/img/icons/log-out.svg" class="me-2"
+                  alt="img">Logout</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+      <div class="dropdown mobile-user-menu">
+        <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+          aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="profile.html">My Profile</a>
+          <a class="dropdown-item" href="generalsettings.html">Settings</a>
+          <a class="dropdown-item" href="../templates/login.html">Logout</a>
         </div>
+      </div>
 
     </div>
 
@@ -161,79 +163,79 @@
     <!-- -------------------------------------------------------------------------------- -->
 
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span>
-                                Dashboard</span> </a>
-                    </li>
-                    <li style="background:rgba(234, 84, 85, .12)">
-                        <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img" ><span>
-                                POS</span> </a>
-                    </li>
-                    <li style="background: rgba(40, 199, 111, .12);">
-                        <a href="salesPOS.html"><img src="assets/img/icons/pos.png" alt="img"><span>
-                                SALES-POS</span> </a>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span>
-                                Product</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="productlist.html">Product List</a></li>
-                            <li><a href="addproduct.html">Add Product</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
-                                Sales</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="saleslist.html" class="active">Sales List</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span>
-                                Purchase</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="purchaselist.html">Purchase List</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span>
-                                People</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="buyerlist.html">Buyer List</a></li>
-                            <li><a href="addbuyer.html">Add Buyer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/time.svg" alt="img"><span>
-                                Report</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="inventoryreport.html">Inventory Report</a></li>
-                            <li><a href="stockreport.html">Sales Report</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span>
-                                Users</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="#">New User </a></li>
-                            <li><a href="#">Users List</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/settings.svg" alt="img"><span>
-                                Settings</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="#">General Settings</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+      <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+          <ul>
+            <li>
+              <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span>
+                  Dashboard</span> </a>
+            </li>
+            <li style="background:rgba(234, 84, 85, .12)">
+              <a href="pos.html"><img src="assets/img/icons/pos.png" alt="img"><span>
+                  POS</span> </a>
+            </li>
+            <li style="background: rgba(40, 199, 111, .12);">
+              <a href="salesPOS.html"><img src="assets/img/icons/pos.png" alt="img"><span>
+                  SALES-POS</span> </a>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span>
+                  Product</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="productlist.html">Product List</a></li>
+                <li><a href="addproduct.html">Add Product</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span>
+                  Purchase</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="purchaselist.html">Purchase List</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
+                  Sales</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="saleslist.html" class="active">Sales List</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span>
+                  People</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="buyerlist.html">Buyer List</a></li>
+                <li><a href="addbuyer.html">Add Buyer </a></li>
+                <li><a href="supplierlist.html">Supplier List</a></li>
+                <li><a href="addsupplier.html">Add Supplier </a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/time.svg" alt="img"><span>
+                  Report</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="inventoryreport.html">Inventory Report</a></li>
+                <li><a href="stockreport.html">Stock Report</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span>
+                  Users</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="#">New User </a></li>
+                <li><a href="#">Users List</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);"><img src="assets/img/icons/settings.svg" alt="img"><span>
+                  Settings</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="#">General Settings</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
 
     <!-- ------------------------------------------------------------------------- -->
@@ -255,14 +257,12 @@
             <div class="table-top">
               <div class="search-set">
                 <div class="search-path">
-                  <a class="btn btn-filter" id="filter_search">
+                  <a  class="btn btn-filter" id="filter_search">
                     <img src="assets/img/icons/filter.svg" alt="img">
                     <span><img src="assets/img/icons/closes.svg" alt="img"></span>
                   </a>
                 </div>
-                <div class="search-input">
-                  <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
-                </div>
+
               </div>
               <div class="wordset">
                 <ul>
@@ -291,50 +291,22 @@
                     <div class="row">
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Product</option>
-                            <option>Macbook pro</option>
-                            <option>Orange</option>
-                          </select>
+                          <label>Date From</label>
+                          <input type="date" id="fromDate" class="form-control form-control-date">
                         </div>
                       </div>
+
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Category</option>
-                            <option>Computers</option>
-                            <option>Fruits</option>
-                          </select>
+                          <label>Date To</label>
+                          <input type="date" id="toDate" class="form-control form-control-date">
                         </div>
                       </div>
-                      <div class="col-lg col-sm-6 col-12">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Choose Sub Category</option>
-                            <option>Computer</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Brand</option>
-                            <option>N/D</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12 ">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Price</option>
-                            <option>150.00</option>
-                          </select>
-                        </div>
-                      </div>
+
                       <div class="col-lg-1 col-sm-6 col-12">
                         <div class="form-group">
-                          <a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg"
-                              alt="img"></a>
+                          <button id="filter" class="btn btn-filters ms-auto"><img
+                              src="assets/img/icons/search-whites.svg" alt="img"></button>
                         </div>
                       </div>
                     </div>
@@ -346,6 +318,7 @@
             <!-- filter--------------------------------------------------------------- -->
             <!-- filter--------------------------------------------------------------- -->
 
+            <input id="search" type="search" style="border: 1px solid #9f9f9f; border-radius: 4px;">
 
             <div class="table-responsive">
               <table class="table  datanew">
@@ -365,7 +338,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+
                 </tbody>
               </table>
             </div>
@@ -376,43 +349,42 @@
     </div>
   </div>
 
-<template>
-  <tr>
-    <td>
-      <label class="checkboxs">
-        <input type="checkbox">
-        <span class="checkmarks"></span>
-      </label>
-    </td>
-    <td></td>
-    <td></td>
-    <td class="text-red"></td>
-    <td><span class="badges bg-lightgreen">Paid</span></td>
-    <td class="text-center">
-      <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-      </a>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item"><img src="assets/img/icons/eye1.svg"
-              class="me-2" alt="img">Sale Detail</a>
-        </li>
-        <li>
-          <a class="dropdown-item"><img src="assets/img/icons/edit.svg"
-              class="me-2" alt="img">Edit Sale</a>
-        </li>
-        <li>
-          <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal"
-            data-bs-target="#showpayment"><img src="assets/img/icons/dollar-square.svg" class="me-2" alt="img">Show Payments</a>
-        </li>
-        <li>
-          <a href="javascript:void(0);" class="dropdown-item confirm-text"><img
-              src="assets/img/icons/delete1.svg" class="me-2" alt="img">Delete Sale</a>
-        </li>
-      </ul>
-    </td>
-  </tr>
-</template>
+  <template>
+    <tr>
+      <td>
+        <label class="checkboxs">
+          <input type="checkbox">
+          <span class="checkmarks"></span>
+        </label>
+      </td>
+      <td></td>
+      <td></td>
+      <td class="text-red"></td>
+      <td><span class="badges bg-lightgreen">Paid</span></td>
+      <td class="text-center">
+        <a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="true">
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item"><img src="assets/img/icons/eye1.svg" class="me-2" alt="img">Sale Detail</a>
+          </li>
+          <li>
+            <a class="dropdown-item"><img src="assets/img/icons/edit.svg" class="me-2" alt="img">Edit Sale</a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal"
+              data-bs-target="#showpayment"><img src="assets/img/icons/dollar-square.svg" class="me-2" alt="img">Show
+              Payments</a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" class="dropdown-item confirm-text"><img src="assets/img/icons/delete1.svg"
+                class="me-2" alt="img">Delete Sale</a>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </template>
 
   <script>
 
@@ -448,7 +420,7 @@
 
         // Populate the cloned row with data
         newRow.querySelector('td:nth-child(2)').textContent = item.createdAt;
-        newRow.querySelector('td:nth-child(3)').textContent = item.id;//supplier name
+        newRow.querySelector('td:nth-child(3)').textContent = item.person != null ? item.person.name : null;//supplier name
         newRow.querySelector('td:nth-child(4)').textContent = item.total;
         newRow.querySelector('td:nth-child(5)').textContent = "Paid"
 
@@ -457,6 +429,38 @@
       });
 
       tableBody.innerHTML = dataArray;
+
+    }
+
+
+    
+    const search = document.querySelector("#search");
+    const filter = document.querySelector("#filter");
+
+    search.addEventListener('input',filterFunction)
+    filter.addEventListener('click',filterFunction)
+
+    async function filterFunction() {
+      const searchValue=document.querySelector("#search").value;
+      const fromDate = document.querySelector("#fromDate").value;
+      const toDate = document.querySelector("#toDate").value;
+
+      const filterParams = new URLSearchParams();
+
+      const obj = {
+        q: searchValue,
+        fromDateTime: fromDate ? new Date(fromDate).toISOString() : null,
+        toDateTime: toDate ? new Date(toDate).toISOString() : null
+      }
+
+      for (key in obj)
+        if (obj[key])
+          filterParams.set(key, obj[key]);
+
+      const response = await axios.get(`/api/invoice/sale?${filterParams}`);
+      // const data = x
+      const data = response.data
+      populateTable(data)
 
     }
 
