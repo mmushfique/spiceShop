@@ -139,7 +139,7 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img
+                        <a class="dropdown-item logout pb-0" href="/logout"><img
                                 src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                                 Report</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="inventoryreport.html" class="active">Inventory Report</a></li>
-                            <li><a href="stockreport.html">Sales Report</a></li>
+                            <li><a href="stockreport.html">Stock Report</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -297,49 +297,32 @@
               <div class="card-body pb-0">
                 <div class="row">
                   <div class="col-lg-12 col-sm-12">
-                    <div class="row">
+                    <div class="row" style="align-items: end;">
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
+                          <label>Choose Product</label>
                           <select class="select">
-                            <option>Choose Product</option>
                             <option>Macbook pro</option>
                             <option>Orange</option>
                           </select>
                         </div>
                       </div>
+
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Category</option>
-                            <option>Computers</option>
-                            <option>Fruits</option>
-                          </select>
+                          <label>Date From</label>
+                         <input type="date" name="dateFrom" class="form-control form-control-date">
                         </div>
                       </div>
+
                       <div class="col-lg col-sm-6 col-12">
                         <div class="form-group">
-                          <select class="select">
-                            <option>Choose Sub Category</option>
-                            <option>Computer</option>
-                          </select>
+                          <label>Date To</label>
+                         <input type="date" name="dateTo" class="form-control form-control-date">
                         </div>
                       </div>
-                      <div class="col-lg col-sm-6 col-12">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Brand</option>
-                            <option>N/D</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg col-sm-6 col-12 ">
-                        <div class="form-group">
-                          <select class="select">
-                            <option>Price</option>
-                            <option>150.00</option>
-                          </select>
-                        </div>
-                      </div>
+                     
+                     
                       <div class="col-lg-1 col-sm-6 col-12">
                         <div class="form-group">
                           <a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg"
@@ -374,7 +357,7 @@
                     <th>Quality</th>
                     <th>In stock/Sold</th>
                     <th>Bought At</th>
-                    <th>Last updated At</th>
+                    <!-- <th>Last updated At</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -409,7 +392,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <!-- <td></td> -->
     </tr>
   </template>
 
@@ -446,13 +429,14 @@
         var newRow = templateRow.cloneNode(true);
 
         // Populate the cloned row with data
-        newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[1].textContent = item.product?.name;
+        newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[0].querySelector('img').src=item.product.imageUrl
+        newRow.querySelector('td:nth-child(2)').querySelectorAll('a')[1].innerHTML = item.product?.name+"<br>"+item.product?.category;
         newRow.querySelector('td:nth-child(3)').textContent = item.modifiedWeight;
-        newRow.querySelector('td:nth-child(4)').textContent = item.modifiedDryPercent;//supplier name
+        newRow.querySelector('td:nth-child(4)').textContent = item.modifiedDryPercent;
         newRow.querySelector('td:nth-child(5)').textContent = item.quality;
         newRow.querySelector('td:nth-child(6)').textContent = item.transactionStatus === "BOUGHT" ? "In stock" : "Sold"
         newRow.querySelector('td:nth-child(7)').textContent = item.createdAt;
-        newRow.querySelector('td:nth-child(8)').textContent = item.lastModifiedAt;
+        // newRow.querySelector('td:nth-child(8)').textContent = item.lastModifiedAt;
 
         dataArray += newRow.outerHTML;
       });
@@ -568,7 +552,7 @@
       const value = event.target.value
       if (value) {
 
-        // const response = await axios.get(`api/inventory/search?q=${value}`);
+        // const response = await axios.get(`api/inventory?q=${value}`);
         const data = x
         // const data = response.data
         populateTable(data)

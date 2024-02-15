@@ -138,7 +138,7 @@
                                     </path>
                                 </svg>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="signin.html"><img
+                            <a class="dropdown-item logout pb-0" href="/logout"><img
                                     src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
                         </div>
                     </div>
@@ -211,7 +211,7 @@
                                     <h4 id="totalItems"></h4>
                                     <a href="javascript:void(0);">Clear all</a>
                                 </div>
-                                <div class="product-table" id="productTable">
+                                <div class="product-table" id="productTable" style="height: unset;">
                                     <ul class="product-lists">
                                         <li>
                                             <div class="productimg">
@@ -333,11 +333,11 @@
 
                                 <div class="form-group">
                                     <label>Quantity</label>
-                                    <input type="number" step=".01" id="quantity-m">
+                                    <input type="number" step=".01" id="quantity-m" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Cut Quantity</label>
-                                    <input type="number" step=".01" id="dropQty-m">
+                                    <input type="number" step=".01" id="dropQty-m" value="0">
                                 </div>
                             </div>
 
@@ -346,21 +346,24 @@
 
                                 <div class="form-group">
                                     <label>Price per unit</label>
-                                    <input type="number" step=".01" id="pricePerUnit-m">
+                                    <input type="number" step=".01" id="pricePerUnit-m" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="percent">
                                     <label>Dried percentage</label>
-                                    <input type="number" step=".01" id="driedPercentage-m">
+                                    <input type="number" step=".01" id="driedPercentage-m" required oninput="validateInput(this)">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Product quality</label>
-                                <select class="select" id="quality">
+                                <select class="form-select" id="quality" required>
+                                    <option></option>
                                     <option>Good</option>
                                     <option>Average</option>
                                     <option>Bad</option>
                                 </select>
                             </div>
+                            <div id="error-message" style="color: red; display: none;">Please fill in all required fields.</div>
+                            <div id="error-messageMin" style="color: red; display: none;">Please fill percentage between 1 and 100 </div>
                             <input type="hidden" id="productIdInput">
                             <input type="hidden" id="productNameInput">
                             <input type="hidden" id="productImageUrlInput">
@@ -458,8 +461,16 @@
                     const productNameInput = document.getElementById("productNameInput");
                     const productImageUrlInput = document.getElementById("productImageUrlInput");
                     const modalTitle = document.getElementById("productTitle");
-
-
+                    const categorySelect=document.getElementById("percent");
+            
+                    const category=img.querySelectorAll('#productDet h4')[1].textContent;
+                    if(category==="DRY"){
+                        categorySelect.style.display="none"
+                        categorySelect.querySelector("input").value=100
+                    }else{
+                        categorySelect.style.display="block"
+                        categorySelect.querySelector("input").value=""
+                    }
                     const title = `${img.querySelectorAll('#productDet h4')[0].textContent} ${img.querySelectorAll('#productDet h4')[1].textContent}`;
 
                     modalTitle.textContent = title;
@@ -489,43 +500,55 @@
             const quality = document.querySelector('#quality').value;
             const qtyAfterDropped = quantity - cutQty;
 
-            ///////////////////////////////////////
-            templateContent.querySelector("h4").textContent = name
-            templateContent.querySelector("#id").value = id
-            templateContent.querySelector("#quality").value = quality
-            templateContent.querySelector("#driedPercentage").value = driedPercentage
+            if (!quantity || !pricePerUnit || !driedPercentage || !quality) {
+                document.getElementById("error-message").style.display = "block";
+                return false;
+            } else {
+                ///////////////////////////////////////
+                templateContent.querySelector("h4").textContent = name
+                templateContent.querySelector("#id").value = id
+                templateContent.querySelector("#quality").value = quality
+                templateContent.querySelector("#driedPercentage").value = driedPercentage
 
-            templateContent.querySelectorAll("li")[0].querySelector('img').src = imgUrl
-            templateContent.querySelectorAll("li")[1].textContent = pricePerUnit
-            templateContent.querySelectorAll("li")[2].textContent = quantity
-            templateContent.querySelectorAll("li")[3].textContent = qtyAfterDropped
-            templateContent.querySelector(".total").textContent = calculateTotal(qtyAfterDropped, pricePerUnit)
+                templateContent.querySelectorAll("li")[0].querySelector('img').src = imgUrl
+                templateContent.querySelectorAll("li")[1].textContent = pricePerUnit
+                templateContent.querySelectorAll("li")[2].textContent = quantity
+                templateContent.querySelectorAll("li")[3].textContent = qtyAfterDropped
+                templateContent.querySelector(".total").textContent = calculateTotal(qtyAfterDropped, pricePerUnit)
 
-            const randomId = Math.random() + Date.now()
-            templateContent.setAttribute("data-id", randomId)
+                const randomId = Math.random() + Date.now()
+                templateContent.setAttribute("data-id", randomId)
 
-            const productTable = document.querySelector("#productTable")
-            productTable.appendChild(templateContent);
+                const productTable = document.querySelector("#productTable")
+                productTable.appendChild(templateContent);
 
-            //adding event listener after adding to dom
-            const deleteButton = productTable.querySelector(`[data-id='${randomId}'] [data-action='delete'] button`)
-            deleteButton.addEventListener('click', () => {
-                const parentUl = deleteButton.parentElement.parentElement
-                deleteTransactionItem(parentUl.dataset.id)
-            })
+                //adding event listener after adding to dom
+                const deleteButton = productTable.querySelector(`[data-id='${randomId}'] [data-action='delete'] button`)
+                deleteButton.addEventListener('click', () => {
+                    const parentUl = deleteButton.parentElement.parentElement
+                    deleteTransactionItem(parentUl.dataset.id)
+                })
 
-            reCalculateTotal()
-
+                reCalculateTotal()
+                // Clear the input fields
+                document.querySelector('#pricePerUnit-m').value = '';
+                document.querySelector('#quantity-m').value = '';
+                document.querySelector('#dropQty-m').value = '';
+                document.querySelector('#driedPercentage-m').value = '';
+                document.querySelector("#quality").selectedIndex = 0;
+            }
             const createModal = document.getElementById('create');
             const modal = bootstrap.Modal.getInstance(createModal);
             if (modal) {
                 modal.hide();
+                // Clear the input fields
+                document.querySelector('#pricePerUnit-m').value = '';
+                document.querySelector('#quantity-m').value = '';
+                document.querySelector('#dropQty-m').value = '';
+                document.querySelector('#driedPercentage-m').value = '';
+                document.querySelector("#quality").selectedIndex = 0;
             }
-            // Clear the input fields
-            document.querySelector('#pricePerUnit-m').value = '';
-            document.querySelector('#quantity-m').value = '';
-            document.querySelector('#dropQty-m').value = '';
-            document.querySelector('#driedPercentage-m').value = '';
+
         }
 
         function calculateTotal(quantity, pricePerUnit) {//totalprice for each transaction
@@ -557,49 +580,60 @@
             const total = document.querySelector('#total');
             const supplier = document.querySelector('#supplier').value;
             const parts = supplier.split("-");
-            let id=null;
-            if (parts.length === 2) {id = parts[1];}
+            let id = null;
+            if (parts.length === 2) {
+                id = parts[1];
+            }
             const invoice1 = {
-                "total": parseFloat(total.textContent.replace('Rs', '')),
-                "tradeType": "BOUGHT",
-                "person": {
+                total: parseFloat(total.textContent.replace('Rs', '')),
+                tradeType: "BOUGHT",
+                person: {
                     "id": id
-                }
+                },
+                createdAt: new Date().toISOString()
             };
+
             const invoice2 = {
-                "total": parseFloat(total.textContent.replace('Rs', '')),
-                "tradeType": "BOUGHT"
+                total: parseFloat(total.textContent.replace('Rs', '')),
+                tradeType: "BOUGHT",
+                createdAt: new Date().toISOString()
             };
-            const invoice=invoice2;
-            if(id!==null){invoice1}
+            let invoice = invoice2;
+            if (id !== null) { invoice = invoice1 }
             axios.post('/api/invoice', invoice)
                 .then(invoiceResponse => {
+                    console.log(invoiceResponse.data)
                     const invoiceId = invoiceResponse.data.id;
                     const productTableLists = document.querySelectorAll('.product-lists');
                     const transactions = [];
+                    
                     for (let i = 1; i < productTableLists.length; i++) {
                         const table = productTableLists[i];
-                        const dried=false;
-                        if(table.querySelector('#driedPercentage').value>95){dried=true}
+                        let dried = false;
+                        
+
+                        if (table.querySelector('#driedPercentage').value > 95) { dried = true }
+                        
                         const record = {
                             "pricePerUnit": parseFloat(table.querySelectorAll('li')[1].textContent),
                             "qty": parseFloat(table.querySelectorAll('li')[2].textContent),
                             "qtyAfterDropped": parseFloat(table.querySelectorAll('li')[3].textContent),
                             "price": parseFloat(table.querySelectorAll('li')[4].textContent),
                             "dried": dried,
-                            "quality":table.querySelector('#quality').value,
+                            "quality": table.querySelector('#quality').value,
                             "dryPercent": parseFloat(table.querySelector('#driedPercentage').value),
                             "invoice": {
                                 "id": invoiceId // Use the invoice ID obtained earlier
                             },
                             "product": {
-                                "id": table.querySelector('#id').textContent
-                            }
+                                "id": parseFloat(table.querySelector('#id').value)
+                            },
+                            createdAt: new Date().toISOString()
                         };
-console.log(record)
+
                         transactions.push(record);
                     }
-console.log(transactions)
+
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
                             modalPop('Transaction successful');
@@ -612,6 +646,7 @@ console.log(transactions)
                     document.getElementById('checkoutTotal').textContent = '0.00';
                 })
                 .catch(error => {
+                    console.log(error.data)
                     modalPop('Error creating invoice:', error);
                 });
         });
@@ -656,9 +691,26 @@ console.log(transactions)
             const closeBtn = document.querySelector('.close');
             closeBtn.onclick = function () {
                 modal.style.display = 'none';
+                location.reload();
             };
             return;
         }
+
+        function validateInput(input) {
+            const min = 1;
+            const max = 100;
+
+            if (input.value < min) {
+                document.getElementById("error-messageMin").style.display = "block";
+                return false; 
+            } else if (input.value > max) {
+                document.getElementById("error-messageMin").style.display = "block";
+                return false; 
+            }else{
+                document.getElementById("error-messageMin").style.display = "none"
+            }
+        }
+
 
     </script>
     <script src="assets/js/axios.js"></script>

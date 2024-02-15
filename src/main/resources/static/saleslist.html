@@ -137,7 +137,7 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img
+                        <a class="dropdown-item logout pb-0" href="/logout"><img
                                 src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
@@ -185,19 +185,19 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
-                                Sales</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="saleslist.html" class="active">Sales List</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span>
-                                Purchase</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="purchaselist.html">Purchase List</a></li>
-                        </ul>
-                    </li>
+                      <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span>
+                              Purchase</span> <span class="menu-arrow"></span></a>
+                      <ul>
+                          <li><a href="purchaselist.html" >Purchase List</a></li>
+                      </ul>
+                  </li>
+                  <li class="submenu">
+                      <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span>
+                              Sales</span> <span class="menu-arrow"></span></a>
+                      <ul>
+                          <li><a href="saleslist.html" class="active">Sales List</a></li>
+                      </ul>
+                  </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span>
                                 People</span> <span class="menu-arrow"></span></a>
@@ -213,7 +213,7 @@
                                 Report</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="inventoryreport.html">Inventory Report</a></li>
-                            <li><a href="stockreport.html">Sales Report</a></li>
+                            <li><a href="stockreport.html">Stock Report</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -448,7 +448,7 @@
 
         // Populate the cloned row with data
         newRow.querySelector('td:nth-child(2)').textContent = item.createdAt;
-        newRow.querySelector('td:nth-child(3)').textContent = item.id;//supplier name
+        newRow.querySelector('td:nth-child(3)').textContent = item.person!=null?item.person.name:null;//supplier name
         newRow.querySelector('td:nth-child(4)').textContent = item.total;
         newRow.querySelector('td:nth-child(5)').textContent = "Paid"
 
