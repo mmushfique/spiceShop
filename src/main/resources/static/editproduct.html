@@ -149,7 +149,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -272,7 +272,7 @@
                                 <input type="text" id="prdid" hidden>
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="select" id="category">
+                                    <select class="select" id="category" onchange="percentFieldsChange()">
                                         <option>DRY</option>
                                         <option>WET</option>
                                     </select>
@@ -290,7 +290,7 @@
                             </div>
                         </div>
 
-
+                        <div id="percent" style="display: none;">
                             <fieldset>
                                 <legend>Weight loss rate</legend>
 
@@ -315,7 +315,7 @@
 
                             </fieldset>
 
-
+                        </div>
 
                             
 
@@ -330,7 +330,7 @@
                                 <div class="form-group">
                                     <label> Product Image</label>
                                     <div class="image-upload">
-                                        <input type="file">
+                                        <input type="file" id="imageInput" onchange="previewImage()">
                                         <div class="image-uploads">
                                             <img src="assets/img/icons/upload.svg" alt="img">
                                             <h4>Drag and drop a file to upload</h4>
@@ -342,18 +342,8 @@
                                 <div class="product-list">
                                     <ul class="row">
                                         <li>
-                                            <div class="productviews">
-                                                <div class="productviewsimg">
-                                                    <img src="assets/img/icons/macbook.svg" alt="img">
-                                                </div>
-                                                <div class="productviewscontent">
-                                                    <div class="productviewsname">
-                                                        <h2>macbookpro.jpg</h2>
-                                                        <h3>581kb</h3>
-                                                    </div>
-                                                    <a href="javascript:void(0);" class="hideset">x</a>
-                                                </div>
-                                            </div>
+                                            <img id="imagePreview" src="" alt="Image Preview"
+                                                style="height: 200px; width: 200px;padding: 20px;">
                                         </li>
                                     </ul>
                                 </div>
@@ -418,6 +408,7 @@
                             var catSelect=document.getElementById('category');
                             var unitSelect = document.getElementById('unit');
                             var descriptionTextarea = document.getElementById('description');
+                            var imagePreview = document.getElementById('imagePreview');
 
                             // Populate the form fields with the retrieved data
                             id.value = data.id;
@@ -425,13 +416,20 @@
                             rateFrom0Input.value = data.rateFrom0;
                             rateFrom50Input.value = data.rateFrom50;
 
-                            // Set the selected option in the 'unit' dropdown
+                           
+
+                            // Set the selected option in the 'category' dropdown
                             var catOptions = catSelect.options;
                             for (var i = 0; i < catOptions.length; i++) {
-                                if (catOptions[i].text === data.unit) {
+                                if (catOptions[i].text === data.category) {
                                     catOptions[i].selected = true;
                                     break;
                                 }
+                            }
+
+                            if(data.category==="DRY"){
+                                const obj = document.getElementById("percent");
+                                obj.style.display = 'none';
                             }
 
                             // Set the selected option in the 'unit' dropdown
@@ -444,6 +442,8 @@
                             }
 
                             descriptionTextarea.value = data.description;
+
+                            imagePreview.src=data.imageUrl
                         } else {
                             console.error('Failed to fetch product data');
                         }
@@ -517,6 +517,31 @@
             return;
         }
 
+
+        function previewImage() {
+            var fileInput = document.getElementById('imageInput');
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.style.display = 'inline';
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function percentFieldsChange() {
+            const obj = document.getElementById("percent")
+            const category = document.getElementById('category').value;
+            if (category === "WET") {
+                obj.style.display = 'block';
+            }
+            if (category=== "DRY") {
+                obj.style.display = 'none';
+            }
+        }
 
         // Add an event listener to the Submit button
         document.querySelector('.btn-submit').addEventListener('click', handleSubmit);

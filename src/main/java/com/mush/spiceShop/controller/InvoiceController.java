@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -34,13 +36,17 @@ public class InvoiceController {
     }
 
     @GetMapping("/purchase")
-    public List<Invoice> getAllInvoicePurchases(){
-        return invoiceService.getAllInvoicePurchases();
+    public List<Invoice> getAllInvoicePurchases(@RequestParam(value = "q", required = false, defaultValue = "") String search,
+                                                @RequestParam(value = "fromDateTime", required = false) Instant fromDateTime,
+                                                @RequestParam(value = "toDateTime", required = false) Instant toDateTime){
+        return invoiceService.getAllInvoicePurchases(search,fromDateTime, toDateTime);
     }
 
     @GetMapping("/sale")
-    public List<Invoice> getAllInvoiceSales(){
-        return invoiceService.getAllInvoiceSales();
+    public List<Invoice> getAllInvoiceSales(@RequestParam(value = "q", required = false, defaultValue = "") String search,
+                                            @RequestParam(value = "fromDateTime", required = false) Instant fromDateTime,
+                                            @RequestParam(value = "toDateTime", required = false) Instant toDateTime){
+        return invoiceService.getAllInvoiceSales(search,fromDateTime, toDateTime);
     }
 
     @PutMapping

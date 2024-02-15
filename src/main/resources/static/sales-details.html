@@ -149,7 +149,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -454,7 +454,7 @@
                 newRow.querySelector('td:nth-child(2)').textContent = item.qty;
                 newRow.querySelector('td:nth-child(3)').textContent = item.qtyAfterDropped;//supplier name
                 newRow.querySelector('td:nth-child(4)').textContent = item.pricePerUnit;
-                newRow.querySelector('td:nth-child(5)').textContent = item.invoice.total;
+                newRow.querySelector('td:nth-child(5)').textContent = item.prcie;
                 dataArray += newRow.outerHTML;
             });
 

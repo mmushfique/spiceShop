@@ -142,7 +142,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="../templates/login.html">Logout</a>
                 </div>
             </div>
 
@@ -297,7 +297,7 @@
                                             <div class="form-group">
                                                 <label>0%-50%</label>
                                                 <!-- <input type="number" step="0.01"> -->
-                                                <input type="text" id="rateFrom0">
+                                                <input type="number" step=".01" id="rateFrom0">
                                             </div>
                                         </div>
 
@@ -305,7 +305,7 @@
                                             <div class="form-group">
                                                 <label>50%-100%</label>
                                                 <!-- <input type="number" step="0.01"> -->
-                                                <input type="text" id="rateFrom50">
+                                                <input type="number" step=".01" id="rateFrom50">
                                             </div>
                                         </div>
                                     </div>
@@ -382,15 +382,16 @@
             const unit = document.getElementById('unit').value;
             const description = document.getElementById('description').value;
             const imageFile = document.getElementById('imageInput').files[0];
-
+debugger
             // Validate the values (you can add more validation as needed)
-            if (!productName || !unit || !description || !imageFile) {
+            if (!productName || !description || !imageFile) {
                 modalPop('Please fill in all fields.')
-            }
-            if(category==="WET"){
-                if ( !rateFrom0 || !rateFrom50 ) {
-                modalPop('Please fill in all fields.')
-            }
+                if(category==="WET"){
+                    if ( rateFrom0===null || rateFrom50===null ) {
+                        modalPop('Please fill in all fields.')
+                    }
+                }
+            
             }
             else {
                 // Create an object to hold the data
