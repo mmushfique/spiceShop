@@ -437,8 +437,8 @@
                     buyers.textContent = response.data.buyerCount;
                     purchaseCount.textContent = response.data.purchasedInvoice;
                     salesCount.textContent = response.data.salesInvoice;
-                    purchases.textContent = Math.ciel(response.data.totalPurchasedAmount);
-                    sales.textContent = Math.ciel(response.data.totalSalesAmount);
+                    purchases.textContent = Math.round(response.data.totalPurchasedAmount);
+                    sales.textContent = Math.round(response.data.totalSalesAmount);
                 })
                 .catch(function (error) {
                     console.error('An error occurred while fetching data:', error);

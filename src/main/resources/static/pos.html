@@ -642,6 +642,7 @@
                     axios.post('/api/transaction/purchase', transactions)
                         .then(response => {
                             displayAndPrintBill(transactions);
+                            location.reload();
                             // modalPop('Transaction successful');
                         })
                         .catch(error => {
