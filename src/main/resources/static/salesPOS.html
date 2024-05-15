@@ -612,7 +612,7 @@
                     for (let i = 1; i < productTableLists.length; i++) {
 
                         const row = productTableLists[i];
-                        const dried = false;
+                        let dried = false;
                         if (row.querySelector('#driedPercentage').value > 95) { dried = true }
                         const record = {
                             "pricePerUnit": parseFloat(row.querySelectorAll('li')[1].textContent),
@@ -639,8 +639,9 @@
                     axios.post('/api/transaction/sale', transactions)
                         .then(response => {
                             console.log(response)
-                            // displayAndPrintBill(transactions);
-                            modalPop('Transaction successful');
+                            displayAndPrintBill(transactions);
+                            location.reload();
+                            // modalPop('Transaction successful');
                         })
                         .catch(error => {
                             modalPop('Error sending transaction data:', error);
@@ -657,85 +658,85 @@
         ///////////////billllllllll///////////////////
         // JavaScript to populate and display the bill
         // Create an HTML table to display the bill
-        // function createBillHTML(transactions) {
-        //     const total = document.querySelector('#total').textContent;
-        //     const buyer = document.querySelector('#buyer').value;
-        //     let billHTML = `
-        //     <caption style="text-align:center;">SPICE SHOP</caption>
-        //     <div style="display:flex;justify-content:space-between;width:100%">
-        //         <p>Buyer name: ${buyer}</p>
-        //         <p>Date : ${new Date().toISOString().split("T")[0]}</p> 
-        //         </div>
-        //     <table class="table">
-        //         <thead>
-        //             <tr>
-        //                 <th>Product</th>
-        //                 <th>Price per Unit</th>
-        //                 <th>Quantity</th>
-        //                 <th>Qty After Dropped</th>
-        //                 <th>Price</th>
-        //             </tr>
-        //         </thead>
-        //         <tbody>
-        // `;
+        function createBillHTML(transactions) {
+            const total = document.querySelector('#total').textContent;
+            const buyer = document.querySelector('#buyer').value;
+            let billHTML = `
+            <caption style="text-align:center;">SPICE SHOP</caption>
+            <div style="display:flex;justify-content:space-between;width:100%">
+                <p>Buyer name: ${buyer}</p>
+                <p>Date : ${new Date().toISOString().split("T")[0]}</p> 
+                </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price per Unit</th>
+                        <th>Quantity</th>
+                        <th>Qty After Dropped</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
 
-        //     for (const transaction of transactions) {
-        //         billHTML += `
-        //         <tr>
-        //             <td>${transaction.product.name}</td>
-        //             <td>${transaction.pricePerUnit}</td>
-        //             <td>${transaction.qty}</td>
-        //             <td>${transaction.qtyAfterDropped}</td>
-        //             <td>${transaction.price}</td>
-        //         </tr>
-        //         `;
-        //     }
+            for (const transaction of transactions) {
+                billHTML += `
+                <tr>
+                    <td>${transaction.product.name}</td>
+                    <td>${transaction.pricePerUnit}</td>
+                    <td>${transaction.qty}</td>
+                    <td>${transaction.qtyAfterDropped}</td>
+                    <td>${transaction.price}</td>
+                </tr>
+                `;
+            }
 
 
-        //     billHTML += ` 
+            billHTML += ` 
 
-        //             </tbody>
-        //         </table>
+                    </tbody>
+                </table>
 
-        //         <div style="border-bottom:1px double #000;padding-top:50px">
-        //                 <p style="text-align:right;width:100%">Total   ${total}</p>
-        //         </div>
-        //     `;
+                <div style="border-bottom:1px double #000;padding-top:50px">
+                        <p style="text-align:right;width:100%">Total   ${total}</p>
+                </div>
+            `;
 
-        //     return billHTML;
-        // }
+            return billHTML;
+        }
 
 
         // // Function to display and print the bill
-        // function displayAndPrintBill(transactions) {
-        //     const billHTML = createBillHTML(transactions);
+        function displayAndPrintBill(transactions) {
+            const billHTML = createBillHTML(transactions);
 
-        //     // Create a new window to display the bill
-        //     const billWindow = window.open('', 'Bill', 'height=600,width=800');
-        //     billWindow.document.write(`
-        //         <!DOCTYPE html>
-        //         <html>
-        //         <head>
-        //             <title>Invoice Bill</title>
-        //             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        //         </head>
-        //         <body>
-        //             <div class="container">
-        //                 <h2 class="text-center">Invoice Bill</h2>
-        //                 ${billHTML}
-        //             </div>
+            // Create a new window to display the bill
+            const billWindow = window.open('', 'Bill', 'height=600,width=800');
+            billWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Invoice Bill</title>
+                    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+                </head>
+                <body>
+                    <div class="container">
+                        <h2 class="text-center">Invoice Bill</h2>
+                        ${billHTML}
+                    </div>
 
-        //         </body>
-        //         </html>
-        //     `);
+                </body>
+                </html>
+            `);
 
 
-        //     // Allow some time for the bill content to load
-        //     setTimeout(() => {
-        //         billWindow.print();
-        //         billWindow.close();
-        //     }, 100);
-        // }
+            // Allow some time for the bill content to load
+            setTimeout(() => {
+                billWindow.print();
+                billWindow.close();
+            }, 100);
+        }
 
 
         ///// END ///////////Send the records from table to server///////////////////////////
